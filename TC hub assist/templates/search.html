@@ -1,0 +1,1253 @@
+{% extends "base.html" %}
+
+{% block title %}Search & Compare - Screening Tool{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2>Search & Compare</h2>
+        <p>Search for customers and restricted parties, then compare them side by side.</p>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Search Customers</h5>
+                <span id="customerSelectionIndicator" class="badge bg-secondary" style="display: none;">
+                    <i class="fas fa-check"></i> Selected
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="customerSearch" placeholder="Search by name, address, phone, or email...">
+                </div>
+                <div id="customerResults" class="search-results">
+                    <p class="text-muted">Enter search terms to find customers</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Search Restricted Parties</h5>
+                <span id="partySelectionIndicator" class="badge bg-secondary" style="display: none;">
+                    <i class="fas fa-check"></i> Selected
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="partySearch" placeholder="Search by name, reason, or source...">
+                </div>
+                <div id="partyResults" class="search-results">
+                    <p class="text-muted">Enter search terms to find restricted parties</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row mb-4">
+    <div class="col-12 text-center">
+        <button class="btn btn-success btn-lg" id="compareBtn" disabled>
+            <i class="fas fa-balance-scale"></i> Compare Selected
+        </button>
+        <button class="btn btn-secondary btn-lg ms-2" id="clearSelectionBtn">
+            <i class="fas fa-times"></i> Clear Selection
+        </button>
+    </div>
+</div>
+
+<!-- Match Type Selection Modal -->
+<div class="modal fade" id="matchTypeModal" tabindex="-1" aria-labelledby="matchTypeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="matchTypeModalLabel">Select Match Type</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-danger h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-exclamation-triangle text-danger fa-3x mb-3"></i>
+                                <h5 class="card-title text-danger">Exact Match</h5>
+                                <p class="card-text">Names are identical or very similar (100% match)</p>
+                                <button type="button" class="btn btn-danger btn-lg" id="exactMatchBtn">
+                                    Select Exact Match
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-warning h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-search text-warning fa-3x mb-3"></i>
+                                <h5 class="card-title text-warning">Near Match</h5>
+                                <p class="card-text">Names are similar but not identical (&lt;100% match)</p>
+                                <button type="button" class="btn btn-warning btn-lg" id="nearMatchBtn">
+                                    Select Near Match
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Near Match Comments Modal -->
+<div class="modal fade" id="nearMatchModal" tabindex="-1" aria-labelledby="nearMatchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="nearMatchModalLabel">Select Comment for Near Match</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="nearMatchComments" class="form-label">Select appropriate comment:</label>
+                    <select class="form-select form-select-lg" id="nearMatchComments">
+                        <option value="">-- Select Comment --</option>
+                        <option value="EMBF - False ZEMB Match - Locked is the individual Person and not related to embargo country.">EMBF - False ZEMB Match - Locked is the individual Person and not related to embargo country.</option>
+                        <option value="EMBF - False ZEMB Match - Our customer is in the business of See website:">EMBF - False ZEMB Match - Our customer is in the business of See website:</option>
+                        <option value="EMBN - Delivery to Non-Embargoed Country-Consulate of a non-embargoed country in a non-embargoed country.">EMBN - Delivery to Non-Embargoed Country-Consulate of a non-embargoed country in a non-embargoed country.</option>
+                        <option value="EMBN - Delivery to Non-Embargoed Country-Embassy of a non-embargoed country in a non-embargoed country.">EMBN - Delivery to Non-Embargoed Country-Embassy of a non-embargoed country in a non-embargoed country.</option>
+                        <option value="KWDF- False Keyword Match - XXXX was the keyword that matched the customer's name. This customer does not participate in activities of concern. See website: WWW.XXXX">KWDF- False Keyword Match - XXXX was the keyword that matched the customer's name. This customer does not participate in activities of concern. See website: WWW.XXXX</option>
+                        <option value="SPLE -Eligible for SPL Exemption - The customer is an HP entity and qualifies for an exemption.">SPLE -Eligible for SPL Exemption - The customer is an HP entity and qualifies for an exemption.</option>
+                        <option value="SPLF - False SPL Match- Customer and RPL are different.">SPLF - False SPL Match- Customer and RPL are different.</option>
+                        <option value="SPLF - False SPL Match- Customer and RPL are different. Individual vs Entity.">SPLF - False SPL Match- Customer and RPL are different. Individual vs Entity.</option>
+                        <option value="SPLF - False SPL Match- Customer and RPL are different. Two different Individuals.">SPLF - False SPL Match- Customer and RPL are different. Two different Individuals.</option>
+                        <option value="SPLF - False SPL Match- Customer and RPL are different.Both the country are Different.">SPLF - False SPL Match- Customer and RPL are different.Both the country are Different.</option>
+                        <option value="SPLF - False SPL Match- Customer name match that of the RPL name. But Address is different.">SPLF - False SPL Match- Customer name match that of the RPL name. But Address is different.</option>
+                    </select>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary btn-lg" id="saveNearMatchComment" disabled>
+                        Save Comment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Exact Match D-Type Modal -->
+<div class="modal fade" id="exactMatchModal" tabindex="-1" aria-labelledby="exactMatchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exactMatchModalLabel">Select D-Type for Exact Match</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="dtypeSelect" class="form-label">Search and select D-Type:</label>
+                    <input type="text" class="form-control mb-2" id="dtypeSearch" placeholder="Search D-Type...">
+                    <select class="form-select form-select-lg" id="dtypeSelect" size="10">
+                        <option value="">-- Select D-Type --</option>
+                        <optgroup label="Conditional Hold">
+                            <option value="231RU">231RU</option>
+                            <option value="ACL">ACL</option>
+                            <option value="CBW">CBW</option>
+                            <option value="CTL">CTL</option>
+                            <option value="DOS">DOS</option>
+                            <option value="ERL">ERL</option>
+                            <option value="EXECO">EXECO</option>
+                            <option value="INKSA">INKSA</option>
+                            <option value="INPA">INPA</option>
+                            <option value="ISA">ISA</option>
+                            <option value="JPC">JPC</option>
+                            <option value="MEULC">MEULC</option>
+                            <option value="MIEU">MIEU</option>
+                            <option value="MT">MT</option>
+                            <option value="NSMBS">NSMBS</option>
+                            <option value="RFC">RFC</option>
+                            <option value="SECO">SECO</option>
+                            <option value="UKPTG">UKPTG</option>
+                            <option value="ZCRED">ZCRED</option>
+                            <option value="ZEMB">ZEMB</option>
+                            <option value="ZHP">ZHP</option>
+                            <option value="ZHPAE">ZHPAE</option>
+                            <option value="ZHPBP">ZHPBP</option>
+                            <option value="ZHPCM">ZHPCM</option>
+                            <option value="ZHPRM">ZHPRM</option>
+                            <option value="ZHPVM">ZHPVM</option>
+                            <option value="ZKWD">ZKWD</option>
+                            <option value="ZNPHP">ZNPHP</option>
+                            <option value="ZNUKE">ZNUKE</option>
+                        </optgroup>
+                        <optgroup label="Mandatory Hold">
+                            <option value="BALK">BALK</option>
+                            <option value="CSAIR">CSAIR</option>
+                            <option value="CYBER">CYBER</option>
+                            <option value="DTO">DTO</option>
+                            <option value="ELECT">ELECT</option>
+                            <option value="EORU">EORU</option>
+                            <option value="FSEL">FSEL</option>
+                            <option value="HRIT">HRIT</option>
+                            <option value="ICCP">ICCP</option>
+                            <option value="KH50">KH50</option>
+                            <option value="NPWMD">NPWMD</option>
+                            <option value="SDGT">SDGT</option>
+                            <option value="SDME">SDME</option>
+                            <option value="SDNB">SDNB</option>
+                            <option value="SDNBI">SDNBI</option>
+                            <option value="SDNC">SDNC</option>
+                            <option value="SDNCF">SDNCF</option>
+                            <option value="SDNCO">SDNCO</option>
+                            <option value="SDNI">SDNI</option>
+                            <option value="SDNK">SDNK</option>
+                            <option value="SDNL">SDNL</option>
+                            <option value="SDNLB">SDNLB</option>
+                            <option value="SDNML">SDNML</option>
+                            <option value="SDNNI">SDNNI</option>
+                            <option value="SDNR">SDNR</option>
+                            <option value="SDNS">SDNS</option>
+                            <option value="SDNSM">SDNSM</option>
+                            <option value="SDNSO">SDNSO</option>
+                            <option value="SDNSS">SDNSS</option>
+                            <option value="SDNSY">SDNSY</option>
+                            <option value="SDNT">SDNT</option>
+                            <option value="SDNUA">SDNUA</option>
+                            <option value="SDNVE">SDNVE</option>
+                            <option value="SDNYE">SDNYE</option>
+                            <option value="SDNZ">SDNZ</option>
+                            <option value="TCO">TCO</option>
+                            <option value="TDO">TDO</option>
+                            <option value="UNS">UNS</option>
+                            <option value="VESOE">VESOE</option>
+                            <option value="ZDVRL">ZDVRL</option>
+                            <option value="ZERL">ZERL</option>
+                            <option value="ZHPMH">ZHPMH</option>
+                            <option value="ZSDNxx">ZSDNxx</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary btn-lg" id="saveDType" disabled>
+                        Save D-Type
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="comparisonSection" class="row" style="display: none;">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Comparison Results</h5>
+            </div>
+            <div class="card-body">
+                <div class="row" id="comparisonContent">
+                    <!-- Comparison content will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Copy Toast Notification -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="copyResultsToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <i class="fas fa-check-circle text-success me-2"></i>
+            <strong class="me-auto">Success</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Results copied to clipboard!
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+.search-results {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.search-item {
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.search-item:hover {
+    background-color: #f8f9fa;
+    border-color: #0d6efd;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.search-item.selected {
+    background: linear-gradient(135deg, #e7f3ff 0%, #d1ecf1 100%) !important;
+    border: 3px solid #0d6efd !important;
+    box-shadow: 0 8px 25px rgba(13, 110, 253, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: scale(1.03);
+    position: relative;
+    animation: selectedPulse 2s infinite;
+}
+
+.search-item.selected::before {
+    content: "✓ SELECTED";
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.75em;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: badgeBounce 0.5s ease-out;
+}
+
+.search-item.selected::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid #28a745;
+    border-radius: 8px;
+    animation: borderGlow 1.5s infinite;
+}
+
+@keyframes selectedPulse {
+    0%, 100% { 
+        box-shadow: 0 8px 25px rgba(13, 110, 253, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+    50% { 
+        box-shadow: 0 12px 35px rgba(13, 110, 253, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+}
+
+@keyframes badgeBounce {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+@keyframes borderGlow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+}
+
+.search-item h6 {
+    margin-bottom: 5px;
+    color: #0d6efd;
+}
+
+.search-item p {
+    margin-bottom: 3px;
+    font-size: 0.9em;
+}
+
+.customer-details, .party-details {
+    font-size: 0.85em;
+}
+
+.customer-details i, .party-details i {
+    width: 16px;
+    color: #6c757d;
+}
+
+.customer-item.selected {
+    background: linear-gradient(135deg, #e7f3ff 0%, #cfe2ff 100%) !important;
+    border-color: #0d6efd !important;
+}
+
+.customer-item.selected::before {
+    content: "✓ CUSTOMER SELECTED";
+    background: linear-gradient(45deg, #0d6efd, #6610f2);
+}
+
+.party-item.selected {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%) !important;
+    border-color: #ffc107 !important;
+}
+
+.party-item.selected::before {
+    content: "✓ PARTY SELECTED";
+    background: linear-gradient(45deg, #ffc107, #fd7e14);
+}
+
+.party-item.selected::after {
+    border-color: #ffc107;
+}
+
+.alert-sm {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+}
+
+.search-item h6 i {
+    margin-right: 5px;
+}
+
+.comparison-card {
+    border: 2px solid #dee2e6;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.customer-card {
+    border-color: #0d6efd;
+    background-color: #f8f9ff;
+}
+
+.party-card {
+    border-color: #ffc107;
+    background-color: #fffdf0;
+}
+
+.similarity-badge {
+    font-size: 1.2em;
+    padding: 10px 20px;
+}
+
+.high-similarity {
+    border: 2px solid #ffc107 !important;
+    background-color: #fff3cd !important;
+}
+
+.high-similarity:hover {
+    background-color: #ffeaa7 !important;
+    border-color: #ffb347 !important;
+}
+
+#dtypeSelect {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.modal-xl {
+    max-width: 90%;
+}
+
+.selection-indicator {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8em;
+    font-weight: bold;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.final-results-format {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.3;
+    white-space: pre-line;
+}
+
+.final-results-format p {
+    margin-bottom: 2px;
+}
+
+.copy-results-btn {
+    transition: all 0.3s ease;
+    font-size: 0.85em;
+}
+
+.copy-results-btn:hover {
+    transform: scale(1.05);
+}
+
+.copy-results-btn:active {
+    transform: scale(0.95);
+}
+
+
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    let customers = [];
+    let restrictedParties = [];
+    let selectedCustomer = null;
+    let selectedParty = null;
+
+    // Load data
+    loadCustomers();
+    loadRestrictedParties();
+
+    function loadCustomers() {
+        $.get('/api/customers')
+            .done(function(data) {
+                customers = data || [];
+                console.log('Loaded customers:', customers.length);
+            })
+            .fail(function(xhr, status, error) {
+                console.error('Failed to load customers:', error);
+                customers = [];
+                $('#customerResults').html('<p class="text-danger">Failed to load customers</p>');
+            });
+    }
+
+    function loadRestrictedParties() {
+        $.get('/api/restricted-parties')
+            .done(function(data) {
+                restrictedParties = data || [];
+                console.log('Loaded restricted parties:', restrictedParties.length);
+            })
+            .fail(function(xhr, status, error) {
+                console.error('Failed to load restricted parties:', error);
+                restrictedParties = [];
+                $('#partyResults').html('<p class="text-danger">Failed to load restricted parties</p>');
+            });
+    }
+
+    // Customer search
+    $('#customerSearch').on('input', function() {
+        const query = $(this).val().toLowerCase().trim();
+
+        if (query === '') {
+            $('#customerResults').html('<p class="text-muted">Enter search terms to find customers</p>');
+            return;
+        }
+
+        if (customers.length === 0) {
+            $('#customerResults').html('<p class="text-info">No customers available. Add some customers first.</p>');
+            return;
+        }
+
+        const results = customers.filter(function(customer) {
+            return customer.name.toLowerCase().includes(query) ||
+                   (customer.address && customer.address.toLowerCase().includes(query)) ||
+                   (customer.phone && customer.phone.toLowerCase().includes(query)) ||
+                   (customer.email && customer.email.toLowerCase().includes(query));
+        });
+        displayCustomerResults(results);
+    });
+
+    // Restricted party search
+    $('#partySearch').on('input', function() {
+        const query = $(this).val().toLowerCase().trim();
+
+        if (query === '') {
+            $('#partyResults').html('<p class="text-muted">Enter search terms to find restricted parties</p>');
+            return;
+        }
+
+        if (restrictedParties.length === 0) {
+            $('#partyResults').html('<p class="text-info">No restricted parties available. Add some restricted parties first.</p>');
+            return;
+        }
+
+        const results = restrictedParties.filter(function(party) {
+            return party.name.toLowerCase().includes(query) ||
+                   (party.reason && party.reason.toLowerCase().includes(query)) ||
+                   (party.source && party.source.toLowerCase().includes(query));
+        });
+        displayPartyResults(results);
+    });
+
+    function displayCustomerResults(results) {
+        const container = $('#customerResults');
+        container.empty();
+
+        if (results.length === 0) {
+            container.html('<p class="text-muted">No customers found</p>');
+            return;
+        }
+
+        results.forEach(customer => {
+            const createdDate = customer.created_date ? new Date(customer.created_date).toLocaleDateString() : 'N/A';
+            const modifiedDate = customer.modified_date ? new Date(customer.modified_date).toLocaleDateString() : 'N/A';
+
+            const isSelected = selectedCustomer && selectedCustomer.id === customer.id;
+            const itemClass = isSelected ? 'search-item customer-item selected' : 'search-item customer-item';
+
+            const item = $(`
+                <div class="${itemClass}" data-id="${customer.id}">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h6 class="mb-0"><i class="fas fa-user text-primary"></i> ${customer.name}</h6>
+                    </div>
+                    <div class="customer-details">
+                        <p class="mb-1"><strong><i class="fas fa-id-badge"></i> ID:</strong> ${customer.id}</p>
+                        <p class="mb-1"><strong><i class="fas fa-map-marker-alt"></i> Address:</strong> ${customer.address || 'N/A'}</p>
+                        <p class="mb-1"><strong><i class="fas fa-phone"></i> Phone:</strong> ${customer.phone || 'N/A'}</p>
+                        <p class="mb-1"><strong><i class="fas fa-envelope"></i> Email:</strong> ${customer.email || 'N/A'}</p>
+                        <p class="mb-1"><strong><i class="fas fa-comment"></i> Comments:</strong> ${customer.comments || 'N/A'}</p>
+                        <p class="mb-1"><strong><i class="fas fa-calendar-plus"></i> Created:</strong> ${createdDate}</p>
+                        ${customer.modified_date ? `<p class="mb-1"><strong><i class="fas fa-calendar-edit"></i> Modified:</strong> ${modifiedDate}</p>` : ''}
+                    </div>
+                </div>
+            `);
+            container.append(item);
+        });
+    }
+
+    function displayPartyResults(results) {
+        const container = $('#partyResults');
+        container.empty();
+
+        if (results.length === 0) {
+            container.html('<p class="text-muted">No restricted parties found</p>');
+            return;
+        }
+
+        results.forEach(party => {
+            const createdDate = party.created_date ? new Date(party.created_date).toLocaleDateString() : 'N/A';
+            const modifiedDate = party.modified_date ? new Date(party.modified_date).toLocaleDateString() : 'N/A';
+
+            const isSelected = selectedParty && selectedParty.id === party.id;
+            const itemClass = isSelected ? 'search-item party-item selected' : 'search-item party-item';
+
+            const truncateText = (text, maxLength = 100) => {
+                if (!text || text === 'N/A') return 'N/A';
+                return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+            };
+
+            const item = $(`
+                <div class="${itemClass}" data-id="${party.id}">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h6 class="mb-0"><i class="fas fa-exclamation-triangle text-warning"></i> ${party.name}</h6>
+                    </div>
+                    <div class="party-details">
+                        <p class="mb-1"><strong><i class="fas fa-id-badge"></i> ID:</strong> ${party.id}</p>
+                        <p class="mb-1"><strong><i class="fas fa-ban"></i> Reason:</strong> 
+                            <span title="${party.reason || 'N/A'}">${truncateText(party.reason)}</span>
+                        </p>
+                        <p class="mb-1"><strong><i class="fas fa-globe"></i> Source:</strong> 
+                            <span title="${party.source || 'N/A'}">${truncateText(party.source)}</span>
+                        </p>
+                        <p class="mb-1"><strong><i class="fas fa-comment"></i> Comments:</strong> 
+                            <span title="${party.comments || 'N/A'}">${truncateText(party.comments)}</span>
+                        </p>
+                        <p class="mb-1"><strong><i class="fas fa-calendar-plus"></i> Created:</strong> ${createdDate}</p>
+                        ${party.modified_date ? `<p class="mb-1"><strong><i class="fas fa-calendar-edit"></i> Modified:</strong> ${modifiedDate}</p>` : ''}
+                    </div>
+                </div>
+            `);
+            container.append(item);
+        });
+    }
+
+    // Handle customer selection
+    $(document).on('click', '.customer-item', function() {
+        $('.customer-item').removeClass('selected');
+        $(this).addClass('selected');
+        const customerId = parseInt($(this).data('id'));
+        selectedCustomer = customers.find(c => c.id === customerId);
+
+        // Show customer selection indicator
+        $('#customerSelectionIndicator')
+            .removeClass('bg-secondary')
+            .addClass('bg-success')
+            .text(`✓ ${selectedCustomer.name}`)
+            .show()
+            .animate({opacity: 0.8}, 200)
+            .animate({opacity: 1}, 200);
+
+        updateCompareButton();
+    });
+
+    // Handle party selection
+    $(document).on('click', '.party-item', function() {
+        $('.party-item').removeClass('selected');
+        $(this).addClass('selected');
+        const partyId = parseInt($(this).data('id'));
+        selectedParty = restrictedParties.find(p => p.id === partyId);
+
+        // Show party selection indicator
+        $('#partySelectionIndicator')
+            .removeClass('bg-secondary')
+            .addClass('bg-warning')
+            .text(`✓ ${selectedParty.name}`)
+            .show()
+            .animate({opacity: 0.8}, 200)
+            .animate({opacity: 1}, 200);
+
+        updateCompareButton();
+    });
+
+    function updateCompareButton() {
+        const compareBtn = $('#compareBtn');
+        if (selectedCustomer && selectedParty) {
+            compareBtn.prop('disabled', false).removeClass('btn-secondary').addClass('btn-success');
+        } else {
+            compareBtn.prop('disabled', true).removeClass('btn-success').addClass('btn-secondary');
+        }
+    }
+
+    // Compare button click - Show match type modal
+    $('#compareBtn').click(function() {
+        if (selectedCustomer && selectedParty) {
+            $('#matchTypeModal').modal('show');
+        }
+    });
+
+    // Exact match button
+    $('#exactMatchBtn').click(function() {
+        $('#matchTypeModal').modal('hide');
+        $('#exactMatchModal').modal('show');
+    });
+
+    // Near match button
+    $('#nearMatchBtn').click(function() {
+        $('#matchTypeModal').modal('hide');
+        $('#nearMatchModal').modal('show');
+    });
+
+    // D-Type search functionality
+    $('#dtypeSearch').on('input', function() {
+        const searchTerm = $(this).val().toLowerCase();
+        $('#dtypeSelect option').each(function() {
+            const optionText = $(this).text().toLowerCase();
+            if (optionText.includes(searchTerm) || searchTerm === '') {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    // Enable save buttons when selections are made
+    $('#dtypeSelect').change(function() {
+        $('#saveDType').prop('disabled', !$(this).val());
+    });
+
+    $('#nearMatchComments').change(function() {
+        $('#saveNearMatchComment').prop('disabled', !$(this).val());
+    });
+
+    // Save D-Type for exact match
+    $('#saveDType').click(function() {
+        const selectedDType = $('#dtypeSelect').val();
+        if (!selectedDType) return;
+
+        const holdType = selectedDType.includes('Conditional') ? 'Conditional' : 'Mandatory';
+
+        displayExactMatchResults(selectedDType, holdType);
+        $('#exactMatchModal').modal('hide');
+    });
+
+    // Save comment for near match
+    $('#saveNearMatchComment').click(function() {
+        const selectedComment = $('#nearMatchComments').val();
+        if (!selectedComment) return;
+
+        displayNearMatchResults(selectedComment);
+        $('#nearMatchModal').modal('hide');
+    });
+
+    function displayExactMatchResults(dtype, holdType) {
+        const alertClass = holdType === 'Mandatory' ? 'alert-danger' : 'alert-warning';
+        const iconClass = holdType === 'Mandatory' ? 'fas fa-ban' : 'fas fa-exclamation-triangle';
+
+        // Function to extract and format links from text
+        function extractLinks(text) {
+            if (!text || text === 'N/A') return '';
+            const urlRegex = /(https?:\/\/[^\s"]+)/g;
+            const matches = text.match(urlRegex);
+            return matches ? matches.join('\n') : '';
+        }
+
+        // Clean text by removing quotes and extra characters
+        function cleanText(text) {
+            if (!text || text === 'N/A') return '';
+            return text.replace(/['"]/g, '').trim();
+        }
+
+        // Define country detection functions
+        const customerAddress = selectedCustomer.address || '';
+
+        const isAustralia = customerAddress.toLowerCase().includes('australia') || 
+                           customerAddress.toLowerCase().includes('au') ||
+                           customerAddress.toLowerCase().includes('aussie') ||
+                           customerAddress.toLowerCase().includes('sydney') ||
+                           customerAddress.toLowerCase().includes('melbourne') ||
+                           customerAddress.toLowerCase().includes('brisbane') ||
+                           customerAddress.toLowerCase().includes('perth') ||
+                           customerAddress.toLowerCase().includes('adelaide') ||
+                           customerAddress.toLowerCase().includes('canberra') ||
+                           customerAddress.toLowerCase().includes('darwin') ||
+                           customerAddress.toLowerCase().includes('hobart');
+
+        const isCanada = customerAddress.toLowerCase().includes('canada') ||
+                        customerAddress.toLowerCase().includes('canadian') ||
+                        customerAddress.toLowerCase().includes(' ca ') ||
+                        customerAddress.toLowerCase().includes('toronto') ||
+                        customerAddress.toLowerCase().includes('vancouver') ||
+                        customerAddress.toLowerCase().includes('montreal') ||
+                        customerAddress.toLowerCase().includes('calgary') ||
+                        customerAddress.toLowerCase().includes('ottawa') ||
+                        customerAddress.toLowerCase().includes('quebec') ||
+                        customerAddress.toLowerCase().includes('winnipeg') ||
+                        customerAddress.toLowerCase().includes('edmonton') ||
+                        customerAddress.toLowerCase().includes('hamilton');
+
+        const isJapan = customerAddress.toLowerCase().includes('japan') ||
+                       customerAddress.toLowerCase().includes('japanese') ||
+                       customerAddress.toLowerCase().includes('tokyo') ||
+                       customerAddress.toLowerCase().includes('osaka') ||
+                       customerAddress.toLowerCase().includes('kyoto') ||
+                       customerAddress.toLowerCase().includes('nagoya') ||
+                       customerAddress.toLowerCase().includes('yokohama') ||
+                       customerAddress.toLowerCase().includes('kobe') ||
+                       customerAddress.toLowerCase().includes('fukuoka') ||
+                       customerAddress.toLowerCase().includes('sapporo') ||
+                       customerAddress.toLowerCase().includes('hiroshima');
+
+        const customerLinks = extractLinks(selectedCustomer.address);
+        const rplLinks = extractLinks(selectedParty.reason) || extractLinks(selectedParty.source);
+
+        let specialMessage = '';
+
+        // Handle different D-Types with country-specific logic
+        if (dtype === 'ACL') {
+            if (isAustralia) {
+                specialMessage = `
+                    <div class="col-12 mb-3">
+                        <div class="alert alert-danger border-danger">
+                            <h4><i class="fas fa-exclamation-triangle"></i> ACL - AUSTRALIA ADDRESS DETECTED</h4>
+                            <div class="p-3 bg-light border rounded mt-2">
+                                <h5 class="text-danger mb-2">IMMEDIATE ACTION REQUIRED:</h5>
+                                <ol class="mb-2">
+                                    <li><strong>Check Order details fulfilment address</strong></li>
+                                    <li><strong>If confirmed to be from Australia - ESCALATE IMMEDIATELY</strong></li>
+                                    <li><strong>Do not proceed without approval</strong></li>
+                                </ol>
+                                <p class="mb-0 text-danger"><strong>Note:</strong> Australia-based transactions under ACL require special handling and escalation.</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                specialMessage = `
+                    <div class="col-12 mb-3">
+                        <div class="alert alert-warning border-warning">
+                            <h5><i class="fas fa-info-circle"></i> ACL D-Type Selected</h5>
+                            <p><strong>Reminder:</strong> Check Order details fulfilment address. If address is from Australia, escalate immediately.</p>
+                        </div>
+                    </div>
+                `;
+            }
+        } else if (dtype === 'CTL') {
+            if (isCanada) {
+                specialMessage = `
+                    <div class="col-12 mb-3">
+                        <div class="alert alert-danger border-danger">
+                            <h4><i class="fas fa-exclamation-triangle"></i> CTL - CANADA ADDRESS DETECTED</h4>
+                            <div class="p-3 bg-light border rounded mt-2">
+                                <h5 class="text-danger mb-2">IMMEDIATE ACTION REQUIRED:</h5>
+                                <ol class="mb-2">
+                                    <li><strong>Check Order details fulfilment address</strong></li>
+                                    <li><strong>If confirmed to be from Canada - ESCALATE IMMEDIATELY</strong></li>
+                                    <li><strong>Do not proceed without approval</strong></li>
+                                </ol>
+                                <p class="mb-0 text-danger"><strong>Note:</strong> Canada-based transactions under CTL require special handling and escalation.</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                specialMessage = `
+                    <div class="col-12 mb-3">
+                        <div class="alert alert-warning border-warning">
+                            <h5><i class="fas fa-info-circle"></i> CTL D-Type Selected</h5>
+                            <p><strong>Reminder:</strong> Check Order details fulfilment address. If address is from Canada, escalate immediately.</p>
+                        </div>
+                    </div>
+                `;
+            }
+        } else if (dtype === 'JPC') {
+            if (isJapan) {
+                specialMessage = `
+                    <div class="col-12 mb-3">
+                        <div class="alert alert-danger border-danger">
+                            <h4><i class="fas fa-exclamation-triangle"></i> JPC - JAPAN ADDRESS DETECTED</h4>
+                            <div class="p-3 bg-light border rounded mt-2">
+                                <h5 class="text-danger mb-2">IMMEDIATE ACTION REQUIRED:</h5>
+                                <ol class="mb-2">
+                                    <li><strong>Check Order details fulfilment address</strong></li>
+                                    <li><strong>If confirmed to be from Japan - ESCALATE IMMEDIATELY</strong></li>
+                                    <li><strong>Do not proceed without approval</strong></li>
+                                </ol>
+                                <p class="mb-0 text-danger"><strong>Note:</strong> Japan-based transactions under JPC require special handling and escalation.</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                specialMessage = `
+                    <div class="col-12 mb-3">
+                        <div class="alert alert-warning border-warning">
+                            <h5><i class="fas fa-info-circle"></i> JPC D-Type Selected</h5>
+                            <p><strong>Reminder:</strong> Check Order details fulfilment address. If address is from Japan, escalate immediately.</p>
+                        </div>
+                    </div>
+                `;
+            }
+        } else if (dtype === 'SECO' || dtype === 'UKPTG') {
+            specialMessage = `
+                <div class="col-12 mb-3">
+                    <div class="alert alert-info border-info">
+                        <h5><i class="fas fa-info-circle"></i> ${dtype} D-Type Selected</h5>
+                        <p><strong>Action Required:</strong> Check Order details fulfilment address.</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Get formatted dates
+        const getFormattedDate = (dateString) => {
+            if (!dateString) return 'N/A';
+            try {
+                return new Date(dateString).toLocaleDateString() + ' ' + new Date(dateString).toLocaleTimeString();
+            } catch {
+                return dateString;
+            }
+        };
+
+        const comparisonHTML = `
+            <div class="col-12">
+                <div class="alert ${alertClass} mb-4">
+                    <h4><i class="${iconClass}"></i> EXACT MATCH DETECTED - ${holdType.toUpperCase()} HOLD</h4>
+                    <p><strong>D-Type Applied:</strong> ${dtype}</p>
+                    <p><strong>Action Required:</strong> ${holdType === 'Mandatory' ? 'DO NOT RELEASE - Transaction must be blocked' : 'Enhanced due diligence required before proceeding'}</p>
+                </div>
+            </div>
+            ${specialMessage}
+            <div class="col-12">
+                <div class="card border-${holdType === 'Mandatory' ? 'danger' : 'warning'}">
+                    <div class="card-header bg-${holdType === 'Mandatory' ? 'danger' : 'warning'} text-white d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0"><i class="${iconClass}"></i> Final Results</h6>
+                        <button type="button" class="btn btn-sm btn-light copy-results-btn" data-results-type="exact">
+                            <i class="fas fa-copy"></i> Copy Results
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="final-results-format">
+                            <p><strong>D-Type: ${dtype}</strong></p>
+                            <br>
+                            <p><strong>Customer Details:</strong></p>
+                            <p>ID: ${selectedCustomer.id}</p>
+                            <p>Name: ${selectedCustomer.name}</p>
+                            <p>Address: ${selectedCustomer.address || 'N/A'}</p>
+                            <p>Phone: ${selectedCustomer.phone || 'N/A'}</p>
+                            <p>Email: ${selectedCustomer.email || 'N/A'}</p>
+                            <p>Comments: ${selectedCustomer.comments || 'N/A'}</p>
+                            <p>Created Date: ${getFormattedDate(selectedCustomer.created_date)}</p>
+                            <br>
+                            <p><strong>RPL Details:</strong></p>
+                            <p>ID: ${selectedParty.id}</p>
+                            <p>Name: ${selectedParty.name}</p>
+                            <p>Reason: ${cleanText(selectedParty.reason) || 'N/A'}</p>
+                            <p>Source: ${cleanText(selectedParty.source) || 'N/A'}</p>
+                            <p>Comments: ${cleanText(selectedParty.comments) || 'N/A'}</p>
+                            <p>Created Date: ${getFormattedDate(selectedParty.created_date)}</p>
+                            ${(dtype === 'ACL' || dtype === 'CTL' || dtype === 'JPC' || dtype === 'SECO' || dtype === 'UKPTG') ? `<br><div class="border p-2 mt-2 ${
+                                (dtype === 'ACL' && isAustralia) || (dtype === 'CTL' && isCanada) || (dtype === 'JPC' && isJapan) ? 'border-danger bg-danger-subtle' : 'border-warning bg-warning-subtle'
+                            }">
+                                <p class="mb-1"><strong>${dtype} Special Instructions:</strong></p>
+                                <p class="mb-1">• Check Order details fulfilment address</p>
+                                ${dtype === 'ACL' ? `<p class="mb-0 ${isAustralia ? 'text-danger fw-bold' : ''}">• ${isAustralia ? 'AUSTRALIA ADDRESS DETECTED - ESCALATE IMMEDIATELY' : 'If address is from Australia, escalate immediately'}</p>` : ''}
+                                ${dtype === 'CTL' ? `<p class="mb-0 ${isCanada ? 'text-danger fw-bold' : ''}">• ${isCanada ? 'CANADA ADDRESS DETECTED - ESCALATE IMMEDIATELY' : 'If address is from Canada, escalate immediately'}</p>` : ''}
+                                ${dtype === 'JPC' ? `<p class="mb-0 ${isJapan ? 'text-danger fw-bold' : ''}">• ${isJapan ? 'JAPAN ADDRESS DETECTED - ESCALATE IMMEDIATELY' : 'If address is from Japan, escalate immediately'}</p>` : ''}
+                                ${(dtype === 'SECO' || dtype === 'UKPTG') ? `<p class="mb-0">• Proceed with enhanced due diligence</p>` : ''}
+                            </div>` : ''}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        $('#comparisonContent').html(comparisonHTML);
+        $('#comparisonSection').show();
+        scrollToComparison();
+    }
+
+    function displayNearMatchResults(comment) {
+        // Function to extract and format links from text
+        function extractLinks(text) {
+            if (!text || text === 'N/A') return '';
+            const urlRegex = /(https?:\/\/[^\s"]+)/g;
+            const matches = text.match(urlRegex);
+            return matches ? matches.join('\n') : '';
+        }
+
+        // Clean text by removing quotes and extra characters
+        function cleanText(text) {
+            if (!text || text === 'N/A') return '';
+            return text.replace(/['"]/g, '').trim();
+        }
+
+        const customerLinks = extractLinks(selectedCustomer.address);
+        const rplLinks = extractLinks(selectedParty.reason) || extractLinks(selectedParty.source);
+
+        let comparisonHTML;
+
+        // Get formatted dates
+        const getFormattedDate = (dateString) => {
+            if (!dateString) return 'N/A';
+            try {
+                return new Date(dateString).toLocaleDateString() + ' ' + new Date(dateString).toLocaleTimeString();
+            } catch {
+                return dateString;
+            }
+        };
+
+        // Calculate similarity percentage
+        const similarity = calculateSimilarity(selectedCustomer.name, selectedParty.name);
+
+        if (comment.startsWith('SPLF')) {
+            // Show detailed comparison for SPLF comments
+            comparisonHTML = `
+                <div class="col-12">
+                    <div class="alert alert-success mb-4">
+                        <h4><i class="fas fa-check-circle"></i> NEAR MATCH - SPLF ANALYSIS</h4>
+                        <p><strong>Resolution:</strong> Match reviewed and resolved - Transaction may proceed</p>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card border-success">
+                        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0"><i class="fas fa-check-circle"></i> Final Results</h6>
+                            <button type="button" class="btn btn-sm btn-light copy-results-btn" data-results-type="near-splf">
+                                <i class="fas fa-copy"></i> Copy Results
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="final-results-format">
+                                <p><strong>Resolution: ${comment}</strong></p>
+                                <br>
+                                <p><strong>Customer Details:</strong></p>
+                                <p>Name: ${selectedCustomer.name}</p>
+                                <p>Address: ${selectedCustomer.address || 'N/A'}</p>
+                                <br>
+                                <p><strong>RPL Details:</strong></p>
+                                <p>Name: ${selectedParty.name}</p>
+                                <p>Source: ${cleanText(selectedParty.source) || 'N/A'}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            // Show simple result for other comments
+            comparisonHTML = `
+                <div class="col-12">
+                    <div class="alert alert-success mb-4">
+                        <h4><i class="fas fa-check-circle"></i> NEAR MATCH RESOLVED</h4>
+                        <p><strong>Resolution:</strong> Match reviewed and resolved - Transaction may proceed</p>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card border-primary">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0"><i class="fas fa-clipboard-check"></i> Final Results</h6>
+                            <button type="button" class="btn btn-sm btn-light copy-results-btn" data-results-type="near-other">
+                                <i class="fas fa-copy"></i> Copy Results
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="final-results-format">
+                                <p><strong>Resolution: ${comment}</strong></p>
+                                <br>
+                                <p><strong>Customer Details:</strong></p>
+                                <p>Name: ${selectedCustomer.name}</p>
+                                <p>Address: ${selectedCustomer.address || 'N/A'}</p>
+                                <br>
+                                <p><strong>RPL Details:</strong></p>
+                                <p>Name: ${selectedParty.name}</p>
+                                <p>Source: ${cleanText(selectedParty.source) || 'N/A'}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        $('#comparisonContent').html(comparisonHTML);
+        $('#comparisonSection').show();
+        scrollToComparison();
+    }
+
+    function scrollToComparison() {
+        $('html, body').animate({
+            scrollTop: $('#comparisonSection').offset().top - 20
+        }, 500);
+    }
+
+    // Clear selection button
+    $('#clearSelectionBtn').click(function() {
+        $('.search-item').removeClass('selected');
+        selectedCustomer = null;
+        selectedParty = null;
+
+        // Hide selection indicators
+        $('#customerSelectionIndicator, #partySelectionIndicator')
+            .fadeOut(300)
+            .removeClass('bg-success bg-warning')
+            .addClass('bg-secondary');
+
+        updateCompareButton();
+        $('#comparisonSection').hide();
+    });
+
+    // Copy results functionality
+    $(document).on('click', '.copy-results-btn', function() {
+        const btn = $(this);
+        const originalIcon = btn.find('i').attr('class');
+        const originalText = btn.text().trim();
+        const resultsType = btn.data('results-type');
+
+        // Get the results text from the final-results-format div
+        const resultsText = btn.closest('.card').find('.final-results-format').text().trim();
+
+        if (!resultsText) {
+            // Show error feedback
+            btn.html('<i class="fas fa-times"></i> Error').addClass('btn-danger').removeClass('btn-light');
+            setTimeout(function() {
+                btn.html(`<i class="${originalIcon}"></i> ${originalText}`).removeClass('btn-danger').addClass('btn-light');
+            }, 1500);
+            return;
+        }
+
+        // Copy to clipboard
+        try {
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = resultsText;
+            tempTextArea.style.position = 'absolute';
+            tempTextArea.style.left = '-9999px';
+            tempTextArea.style.top = '0';
+            tempTextArea.style.opacity = '0';
+            tempTextArea.style.pointerEvents = 'none';
+            tempTextArea.setAttribute('readonly', '');
+            tempTextArea.setAttribute('tabindex', '-1');
+
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            tempTextArea.setSelectionRange(0, 99999);
+
+            const successful = document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            if (successful) {
+                // Show success toast
+                const toast = new bootstrap.Toast(document.getElementById('copyResultsToast'));
+                toast.show();
+
+                // Visual feedback on button
+                btn.html('<i class="fas fa-check"></i> Copied!').addClass('btn-success').removeClass('btn-light');
+
+                setTimeout(function() {
+                    btn.html(`<i class="${originalIcon}"></i> ${originalText}`).removeClass('btn-success').addClass('btn-light');
+                }, 2000);
+            } else {
+                throw new Error('Copy command failed');
+            }
+
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+
+            // Try modern clipboard API as fallback
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(resultsText).then(function() {
+                    // Show success toast
+                    const toast = new bootstrap.Toast(document.getElementById('copyResultsToast'));
+                    toast.show();
+
+                    // Visual feedback on button
+                    btn.html('<i class="fas fa-check"></i> Copied!').addClass('btn-success').removeClass('btn-light');
+
+                    setTimeout(function() {
+                        btn.html(`<i class="${originalIcon}"></i> ${originalText}`).removeClass('btn-success').addClass('btn-light');
+                    }, 2000);
+                }).catch(function(clipErr) {
+                    console.error('Clipboard API also failed: ', clipErr);
+                    showCopyError();
+                });
+            } else {
+                showCopyError();
+            }
+        }
+
+        function showCopyError() {
+            // Show error feedback
+            btn.html('<i class="fas fa-times"></i> Failed').addClass('btn-danger').removeClass('btn-light');
+
+            setTimeout(function() {
+                btn.html(`<i class="${originalIcon}"></i> ${originalText}`).removeClass('btn-danger').addClass('btn-light');
+            }, 2000);
+
+            // Show error message
+            alert('Failed to copy to clipboard. Please select and copy the text manually.');
+        }
+    });
+
+
+// Similarity calculation function
+    function calculateSimilarity(str1, str2) {
+        const longer = str1.length > str2.length ? str1 : str2;
+        const shorter = str1.length > str2.length ? str2 : str1;
+
+        if (longer.length === 0) {
+            return 1.0;
+        }
+
+        return (longer.length - editDistance(longer, shorter)) / parseFloat(longer.length);
+    }
+
+    function editDistance(str1, str2) {
+        str1 = str1.toLowerCase();
+        str2 = str2.toLowerCase();
+
+        const costs = new Array();
+        for (let i = 0; i <= str2.length; i++) {
+            let lastValue = i;
+            for (let j = 0; j <= str1.length; j++) {
+                if (i === 0)
+                    costs[j] = j;
+                else {
+                    if (j > 0) {
+                        let newValue = costs[j - 1];
+                        if (str1.charAt(j - 1) !== str2.charAt(i - 1))
+                            newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+                        costs[j - 1] = lastValue;
+                        lastValue = newValue;
+                    }
+                }
+            }
+            if (i > 0)
+                costs[str1.length] = lastValue;
+        }
+        return costs[str1.length];
+    }
+
+});
+</script>
+{% endblock %}

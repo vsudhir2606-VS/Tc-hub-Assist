@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="jumbotron bg-primary text-white p-5 rounded">
+            <h1 class="display-4">Customer & Restricted Party Screening Tool</h1>
+            <p class="lead">Comprehensive screening solution for customer compliance and risk management.</p>
+            <hr class="my-4">
+            <p>Manage customers, restricted parties, and run automated screenings to ensure compliance.</p>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="card h-100 border-0">
+            <div class="card-body text-center p-4">
+                <div class="mb-4">
+                    <i class="fas fa-users text-primary" style="font-size: 3rem;"></i>
+                </div>
+                <h5 class="card-title mb-3">Customer Management</h5>
+                <p class="text-muted mb-4">Manage customer information including contact details, addresses, and important comments for comprehensive tracking.</p>
+                <a href="{{ url_for('customers') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-users me-2"></i>Manage Customers
+                </a>
+                <div class="mt-3">
+                    <small class="text-muted">Add, edit, and organize customer data</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card h-100 border-0">
+            <div class="card-body text-center p-4">
+                <div class="mb-4">
+                    <i class="fas fa-ban text-warning" style="font-size: 3rem;"></i>
+                </div>
+                <h5 class="card-title mb-3">Restricted Parties</h5>
+                <p class="text-muted mb-4">Maintain a comprehensive database of restricted parties with detailed reasons, sources, and compliance information.</p>
+                <a href="{{ url_for('restricted_parties') }}" class="btn btn-warning btn-lg text-white">
+                    <i class="fas fa-ban me-2"></i>Manage Restricted Parties
+                </a>
+                <div class="mt-3">
+                    <small class="text-muted">Track sanctioned entities and individuals</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card h-100 border-0 position-relative">
+            <div class="card-body text-center p-4">
+                <div class="mb-4">
+                    <i class="fas fa-search text-info" style="font-size: 3rem;"></i>
+                </div>
+                <h5 class="card-title mb-3">Search & Compare</h5>
+                <p class="text-muted mb-4">Advanced search and comparison tools to identify potential matches between customers and restricted parties.</p>
+                <a href="{{ url_for('search') }}" class="btn btn-info btn-lg">
+                    <i class="fas fa-search me-2"></i>Start Screening
+                </a>
+                <div class="mt-3">
+                    <small class="text-muted">Real-time matching and analysis</small>
+                </div>
+            </div>
+            <div class="position-absolute top-0 end-0 m-3">
+                <span class="badge bg-success">Featured</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card h-100 border-0">
+            <div class="card-body text-center p-4">
+                <div class="mb-4">
+                    <i class="fas fa-comments text-secondary" style="font-size: 3rem;"></i>
+                </div>
+                <h5 class="card-title mb-3">Comments Reference</h5>
+                <p class="text-muted mb-4">Access predefined comments and templates for screening results and match resolution documentation.</p>
+                <a href="{{ url_for('comments') }}" class="btn btn-secondary btn-lg">
+                    <i class="fas fa-comments me-2"></i>View Comments
+                </a>
+                <div class="mt-3">
+                    <small class="text-muted">Standardized compliance responses</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Developer Icon at bottom of home page -->
+<div class="d-flex justify-content-end mt-5 mb-4">
+    <button type="button" class="btn btn-dark btn-sm rounded-circle p-3" data-bs-toggle="modal" data-bs-target="#developerModal" title="Developer Options">
+        <i class="fas fa-code"></i>
+    </button>
+</div>
+
+</div>
+{% endblock %}

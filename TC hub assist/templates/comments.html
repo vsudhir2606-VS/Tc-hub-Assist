@@ -1,0 +1,392 @@
+
+{% extends "base.html" %}
+
+{% block title %}Comments Reference - Screening Tool{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2>Comments Reference</h2>
+        <p>Predefined comments for screening results and match resolutions.</p>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Available Comments</h5>
+                <small class="text-muted">Reference list of predefined comments for screening results</small>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="commentsTable">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Comment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-primary">SPLF</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">False SPL Match- Customer and RPL are different. Two different Individuals.</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-primary">SPLF</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">False SPL Match- Customer and RPL are different. Both the country are Different.</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-primary">SPLF</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">False SPL Match- Customer name match that of the RPL name. But Address is different.</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-primary">SPLF</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">False SPL Match- Customer and RPL are different. Individual vs Entity.</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-primary">SPLF</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">False SPL Match- Customer and RPL are different.</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-success">SPLE</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">Eligible for SPL Exemption - The customer is an HP entity and qualifies for an exemption.</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-warning">APRV</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">Released as per MDCP Process Chart - Conditional Hold</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-info">APSP</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">Approved by GT Trade Compliance as simplified NPS process- CDAX order</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-success">NPSE</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">Eligible for NPS Exemption - The customer is a US Government Agency and qualifies for an exemption.</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-success">NPSE</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">Eligible for NPS Exemption - The customer is located in the US and qualifies for an exemption.</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-secondary">KWDF</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">False Keyword Match - XXXX was the keyword that matched the customer's name. This customer does not participate in activities of concern. See website: WWW.XXXX</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-success">NPSA</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">NPS OK all Locations -Screening ID# NPxxxxxxxx with green/white status.</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-success">NPST</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">NPS OK this Locations -Screening ID# NPxxxxxxxx with green/white status.</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-secondary">EMBF</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">False ZEMB Match - Our customer is in the business of See website:</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-secondary">EMBF</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">False ZEMB Match - Locked is the individual Person and not related to embargo country.</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-info">EMBN</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">Delivery to Non-Embargoed Country-Embassy of a non-embargoed country in a non-embargoed country.</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-info">EMBN</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">Delivery to Non-Embargoed Country-Consulate of a non-embargoed country in a non-embargoed country.</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="comment-row">
+                                <td><span class="badge bg-warning">APRV</span></td>
+                                <td class="comment-text">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="comment-content">RELEASED AS PER ZYME PROCESS - CONDITIONAL HOLD.</span>
+                                        <button class="btn btn-sm btn-primary copy-comment-btn" type="button" title="Click to copy comment">
+                                            <i class="fas fa-copy me-1"></i>Copy
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.badge {
+    font-size: 0.8em;
+    min-width: 50px;
+}
+.table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+.table td {
+    vertical-align: middle;
+}
+.highlight {
+    background-color: #fff3cd !important;
+}
+#searchComments {
+    font-size: 1.1em;
+}
+.input-group-text {
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+}
+.copy-comment-btn {
+    font-size: 0.8em;
+    padding: 0.4rem 0.8rem;
+    min-width: 80px;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+.copy-comment-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,123,255,0.3);
+}
+.comment-content {
+    flex-grow: 1;
+    margin-right: 1rem;
+    line-height: 1.4;
+}
+.comment-text .d-flex {
+    gap: 0.75rem;
+}
+.table td.comment-text {
+    padding: 0.75rem;
+}
+</style>
+
+<!-- Copy Success Toast -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="copyCommentToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000">
+        <div class="toast-header bg-success text-white">
+            <i class="fas fa-clipboard-check me-2"></i>
+            <strong class="me-auto">Copied!</strong>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            <i class="fas fa-check me-2"></i>Comment successfully copied to clipboard!
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Copy comment functionality
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.copy-comment-btn')) {
+            e.preventDefault();
+            
+            const btn = e.target.closest('.copy-comment-btn');
+            const commentText = btn.closest('.comment-text').querySelector('.comment-content').textContent.trim();
+            
+            // Simple copy function
+            function copyToClipboard(text) {
+                // Use modern clipboard API first
+                if (navigator.clipboard && window.isSecureContext) {
+                    return navigator.clipboard.writeText(text);
+                } else {
+                    // Fallback for older browsers
+                    return new Promise((resolve, reject) => {
+                        try {
+                            const textArea = document.createElement('textarea');
+                            textArea.value = text;
+                            textArea.style.cssText = 'position:fixed;top:-1000px;left:-1000px;opacity:0;pointer-events:none;';
+                            document.body.appendChild(textArea);
+                            textArea.focus();
+                            textArea.select();
+                            
+                            const successful = document.execCommand('copy');
+                            document.body.removeChild(textArea);
+                            
+                            if (successful) {
+                                resolve();
+                            } else {
+                                reject(new Error('execCommand failed'));
+                            }
+                        } catch (err) {
+                            reject(err);
+                        }
+                    });
+                }
+            }
+            
+            // Copy to clipboard with immediate feedback
+            copyToClipboard(commentText)
+                .then(() => {
+                    // Success feedback - change icon and color briefly
+                    const icon = btn.querySelector('i');
+                    const originalIcon = icon.className;
+                    
+                    icon.className = 'fas fa-check me-1';
+                    btn.classList.remove('btn-primary');
+                    btn.classList.add('btn-success');
+                    
+                    // Show success toast
+                    const toast = new bootstrap.Toast(document.getElementById('copyCommentToast'));
+                    toast.show();
+                    
+                    // Reset after 1 second
+                    setTimeout(() => {
+                        icon.className = originalIcon;
+                        btn.classList.remove('btn-success');
+                        btn.classList.add('btn-primary');
+                    }, 1000);
+                })
+                .catch(err => {
+                    console.error('Copy failed:', err);
+                    
+                    // Error feedback - change icon and color briefly  
+                    const icon = btn.querySelector('i');
+                    const originalIcon = icon.className;
+                    
+                    icon.className = 'fas fa-exclamation-triangle me-1';
+                    btn.classList.remove('btn-primary');
+                    btn.classList.add('btn-danger');
+                    
+                    // Reset after 1 second
+                    setTimeout(() => {
+                        icon.className = originalIcon;
+                        btn.classList.remove('btn-danger');
+                        btn.classList.add('btn-primary');
+                    }, 1000);
+                    
+                    // Show user-friendly message
+                    alert('Could not copy to clipboard. Please select and copy the text manually.');
+                });
+        }
+    });
+});
+</script>
+{% endblock %}

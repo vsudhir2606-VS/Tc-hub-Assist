@@ -1,0 +1,213 @@
+
+{% extends "base.html" %}
+
+{% block title %}Screening - Screening Tool{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2>Run Screening</h2>
+        <p>Click the button below to run screening and find matches between customers and restricted parties.</p>
+        <button class="btn btn-info btn-lg" id="runScreening">Run Screening</button>
+    </div>
+</div>
+
+<div class="row mt-4" id="resultsSection" style="display: none;">
+    <div class="col-12">
+        <h3>Screening Results</h3>
+        <div id="results"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    $('#runScreening').click(function() {
+        const button = $(this);
+        button.prop('disabled', true).text('Running...');
+
+        $.ajax({
+            url: '/api/screening',
+            method: 'POST',
+            success: function(matches) {
+                button.prop('disabled', false).text('Run Screening');
+                
+                let html = '';
+                
+                if (matches.length === 0) {
+                    html = '<div class="alert alert-success">No matches found!</div>';
+                } else {
+                    const exactMatches = matches.filter(m => m.match_type === 'exact');
+                    const similarMatches = matches.filter(m => m.match_type === 'similar');
+                    
+                    html += `<div class="alert alert-info">
+                        Found ${exactMatches.length} exact matches and ${similarMatches.length} similar matches.
+                    </div>`;
+                    
+                    matches.forEach((match, index) => {
+                        const cardClass = match.match_type === 'exact' ? 'exact-match' : 'similar-match';
+                        html += `
+                            <div class="card mb-3 match-card ${cardClass}">
+                                <div class="card-header">
+                                    <h5>
+                                        ${match.match_type.toUpperCase()} MATCH 
+                                        (${(match.similarity * 100).toFixed(1)}% similarity)
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h6>Customer:</h6>
+                                            <p><strong>Name:</strong> ${match.customer.name}</p>
+                                            <p><strong>Address:</strong> ${match.customer.address || 'N/A'}</p>
+                                            <p><strong>Phone:</strong> ${match.customer.phone || 'N/A'}</p>
+                                            <p><strong>Email:</strong> ${match.customer.email || 'N/A'}</p>
+                                            <p><strong>Comments:</strong> ${match.customer.comments || 'N/A'}</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6>Restricted Party:</h6>
+                                            <p><strong>Name:</strong> ${match.restricted_party.name}</p>
+                                            <p><strong>Reason:</strong> ${match.restricted_party.reason || 'N/A'}</p>
+                                            <p><strong>Source:</strong> ${match.restricted_party.source || 'N/A'}</p>
+                                            <p><strong>Comments:</strong> ${match.restricted_party.comments || 'N/A'}</p>
+                                        </div>
+                                    </div>
+                        `;
+                        
+                        if (match.match_type === 'exact') {
+                            html += `
+                                <div class="mt-3">
+                                    <h6>Hold Type:</h6>
+                                    <div class="mb-3">
+                                        <div class="btn-group" role="group">
+                                            <input type="radio" class="btn-check hold-type-radio" name="holdType${index}" id="mandatory${index}" value="mandatory" data-index="${index}">
+                                            <label class="btn btn-outline-danger" for="mandatory${index}">Mandatory Hold</label>
+                                            
+                                            <input type="radio" class="btn-check hold-type-radio" name="holdType${index}" id="conditional${index}" value="conditional" data-index="${index}">
+                                            <label class="btn btn-outline-warning" for="conditional${index}">Conditional Hold</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="dtypeSection${index}" class="mb-3" style="display: none;">
+                                        <h6>D-Type:</h6>
+                                        <select class="form-select" id="dtypeSelect${index}">
+                                            <option value="">Select D-Type</option>
+                                            <option value="231RU">231RU</option>
+                                            <option value="INPA">INPA</option>
+                                            <option value="SECO">SECO</option>
+                                            <option value="ZHPRM">ZHPRM</option>
+                                            <option value="ACL">ACL</option>
+                                            <option value="ISA">ISA</option>
+                                            <option value="UKPTG">UKPTG</option>
+                                            <option value="ZHPVM">ZHPVM</option>
+                                            <option value="CBW">CBW</option>
+                                            <option value="JPC">JPC</option>
+                                            <option value="ZCRED">ZCRED</option>
+                                            <option value="ZKWD">ZKWD</option>
+                                            <option value="CTL">CTL</option>
+                                            <option value="MEULC">MEULC</option>
+                                            <option value="ZEMB">ZEMB</option>
+                                            <option value="ZNPHP">ZNPHP</option>
+                                            <option value="DOS">DOS</option>
+                                            <option value="MIEU">MIEU</option>
+                                            <option value="ZHP">ZHP</option>
+                                            <option value="ZNUKE">ZNUKE</option>
+                                            <option value="ERL">ERL</option>
+                                            <option value="MT">MT</option>
+                                            <option value="ZHPAE">ZHPAE</option>
+                                            <option value="EXECO">EXECO</option>
+                                            <option value="NSMBS">NSMBS</option>
+                                            <option value="ZHPBP">ZHPBP</option>
+                                            <option value="INKSA">INKSA</option>
+                                            <option value="RFC">RFC</option>
+                                            <option value="ZHPCM">ZHPCM</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <button class="btn btn-sm btn-primary save-hold-type" data-index="${index}">Save Hold Type</button>
+                                </div>
+                            `;
+                        }
+                        
+                        html += `
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+                
+                $('#results').html(html);
+                $('#resultsSection').show();
+                
+                // Bind hold type radio button events
+                $('.hold-type-radio').change(function() {
+                    const index = $(this).data('index');
+                    const holdType = $(this).val();
+                    
+                    if (holdType === 'conditional') {
+                        $(`#dtypeSection${index}`).show();
+                    } else if (holdType === 'mandatory') {
+                        $(`#dtypeSection${index}`).hide();
+                        // Show popup for mandatory hold
+                        if ($(this).is(':checked')) {
+                            alert('⚠️ MANDATORY HOLD - DO NOT RELEASE ⚠️\n\nThis is a 100% match with a restricted party. Transaction must be blocked.');
+                        }
+                    }
+                });
+                
+                // Bind save hold type events
+                $('.save-hold-type').click(function() {
+                    const index = $(this).data('index');
+                    const holdType = $(`input[name="holdType${index}"]:checked`).val();
+                    
+                    if (!holdType) {
+                        alert('Please select a hold type');
+                        return;
+                    }
+                    
+                    let dtype = null;
+                    if (holdType === 'conditional') {
+                        dtype = $(`#dtypeSelect${index}`).val();
+                        if (!dtype) {
+                            alert('Please select a D-Type for conditional hold');
+                            return;
+                        }
+                    }
+                    
+                    const data = {
+                        match_index: index,
+                        hold_type: holdType
+                    };
+                    
+                    if (dtype) {
+                        data.dtype = dtype;
+                    }
+                    
+                    $.ajax({
+                        url: '/api/hold-type',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data),
+                        success: function() {
+                            if (holdType === 'conditional') {
+                                alert(`Conditional hold saved with D-Type: ${dtype}\n\nNext steps:\n1. Review the specific D-Type requirements\n2. Conduct enhanced due diligence\n3. Document decision rationale\n4. Obtain necessary approvals before proceeding`);
+                            } else {
+                                alert('Hold type saved successfully');
+                            }
+                        },
+                        error: function() {
+                            alert('Error saving hold type');
+                        }
+                    });
+                });
+            },
+            error: function() {
+                button.prop('disabled', false).text('Run Screening');
+                alert('Error running screening');
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

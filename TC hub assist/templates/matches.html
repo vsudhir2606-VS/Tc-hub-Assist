@@ -1,0 +1,53 @@
+
+{% extends "base.html" %}
+
+{% block title %}Matches - Screening Tool{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2>Screening Matches</h2>
+        {% if matches %}
+            <p>Total matches found: {{ matches|length }}</p>
+        {% else %}
+            <div class="alert alert-info">No matches found. Run screening first.</div>
+        {% endif %}
+    </div>
+</div>
+
+{% for match in matches %}
+<div class="card mb-3 match-card {% if match.match_type == 'exact' %}exact-match{% else %}similar-match{% endif %}">
+    <div class="card-header">
+        <h5>
+            {{ match.match_type.upper() }} MATCH 
+            ({{ "%.1f"|format(match.similarity * 100) }}% similarity)
+            {% if match.match_type == 'exact' and match.hold_type %}
+                <span class="badge bg-{% if match.hold_type == 'mandatory' %}danger{% else %}warning{% endif %} hold-type-badge">
+                    {{ match.hold_type.upper() }} HOLD
+                </span>
+            {% endif %}
+        </h5>
+        <small class="text-muted">Match Date: {{ match.match_date[:19] }}</small>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h6>Customer:</h6>
+                <p><strong>Name:</strong> {{ match.customer.name }}</p>
+                <p><strong>Address:</strong> {{ match.customer.address or 'N/A' }}</p>
+                <p><strong>Phone:</strong> {{ match.customer.phone or 'N/A' }}</p>
+                <p><strong>Email:</strong> {{ match.customer.email or 'N/A' }}</p>
+                <p><strong>Comments:</strong> {{ match.customer.comments or 'N/A' }}</p>
+            </div>
+            <div class="col-md-6">
+                <h6>Restricted Party:</h6>
+                <p><strong>Name:</strong> {{ match.restricted_party.name }}</p>
+                <p><strong>Reason:</strong> {{ match.restricted_party.reason or 'N/A' }}</p>
+                <p><strong>Source:</strong> {{ match.restricted_party.source or 'N/A' }}</p>
+                <p><strong>Comments:</strong> {{ match.restricted_party.comments or 'N/A' }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
