@@ -1,0 +1,559 @@
+
+{% extends "base.html" %}
+
+{% block title %}Country Codes - Screening Tool{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2>Country Codes Lookup</h2>
+        <p>Search for country codes, countries, and regions.</p>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-search"></i> Search Country Codes</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <input type="text" class="form-control form-control-lg" id="countrySearch" 
+                           placeholder="Enter country code (e.g., US, GB, DE)..." 
+                           maxlength="2" 
+                           style="text-transform: uppercase;">
+                </div>
+                <div class="mb-3">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle"></i> 
+                        Enter 2-letter country codes only. Examples: "US", "GB", "DE", "JP", "IN"
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="fas fa-globe"></i> Results</h5>
+                <span id="resultCount" class="badge bg-secondary">0 results</span>
+            </div>
+            <div class="card-body">
+                <div id="countryResults">
+                    <p class="text-muted text-center">Enter search terms to find country codes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Copy Toast Notification -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="copyToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <i class="fas fa-check-circle text-success me-2"></i>
+            <strong class="me-auto">Success</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Country code copied to clipboard!
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+.country-item {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.country-item:hover {
+    background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+    border-color: #2196f3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.2);
+}
+
+.country-code {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #1976d2;
+    background: #e3f2fd;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    min-width: 40px;
+    text-align: center;
+}
+
+.country-name {
+    font-weight: 600;
+    color: #424242;
+    margin-bottom: 5px;
+}
+
+.country-region {
+    color: #757575;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+.country-details {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.country-details i {
+    color: #666;
+    width: 16px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.search-highlight {
+    background-color: #fff3cd;
+    padding: 1px 3px;
+    border-radius: 2px;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .country-details {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .country-code {
+        font-size: 1em;
+    }
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    // Comprehensive country codes data with EMEA/APJ/AMS regions
+    const countryData = [
+        { code: "AF", country: "Afghanistan", region: "EMEA" },
+        { code: "AL", country: "Albania", region: "EMEA" },
+        { code: "DZ", country: "Algeria", region: "EMEA" },
+        { code: "AS", country: "American Samoa", region: "APJ" },
+        { code: "AD", country: "Andorra", region: "EMEA" },
+        { code: "AO", country: "Angola", region: "EMEA" },
+        { code: "AI", country: "Anguilla", region: "AMS" },
+        { code: "AQ", country: "Antarctica", region: "APJ" },
+        { code: "AG", country: "Antigua and Barbuda", region: "AMS" },
+        { code: "AR", country: "Argentina", region: "AMS" },
+        { code: "AM", country: "Armenia", region: "EMEA" },
+        { code: "AW", country: "Aruba", region: "AMS" },
+        { code: "AU", country: "Australia", region: "APJ" },
+        { code: "AT", country: "Austria", region: "EMEA" },
+        { code: "AZ", country: "Azerbaijan", region: "EMEA" },
+        { code: "BS", country: "Bahamas", region: "AMS" },
+        { code: "BH", country: "Bahrain", region: "EMEA" },
+        { code: "BD", country: "Bangladesh", region: "APJ" },
+        { code: "BB", country: "Barbados", region: "AMS" },
+        { code: "BY", country: "Belarus", region: "EMEA" },
+        { code: "BE", country: "Belgium", region: "EMEA" },
+        { code: "BZ", country: "Belize", region: "AMS" },
+        { code: "BJ", country: "Benin", region: "EMEA" },
+        { code: "BM", country: "Bermuda", region: "AMS" },
+        { code: "BT", country: "Bhutan", region: "APJ" },
+        { code: "BO", country: "Bolivia", region: "AMS" },
+        { code: "BA", country: "Bosnia and Herzegovina", region: "EMEA" },
+        { code: "BW", country: "Botswana", region: "EMEA" },
+        { code: "BV", country: "Bouvet Island", region: "APJ" },
+        { code: "BR", country: "Brazil", region: "AMS" },
+        { code: "IO", country: "British Indian Ocean Territory", region: "APJ" },
+        { code: "BN", country: "Brunei Darussalam", region: "APJ" },
+        { code: "BG", country: "Bulgaria", region: "EMEA" },
+        { code: "BF", country: "Burkina Faso", region: "EMEA" },
+        { code: "BI", country: "Burundi", region: "EMEA" },
+        { code: "KH", country: "Cambodia", region: "APJ" },
+        { code: "CM", country: "Cameroon", region: "EMEA" },
+        { code: "CA", country: "Canada", region: "AMS" },
+        { code: "CV", country: "Cape Verde", region: "EMEA" },
+        { code: "KY", country: "Cayman Islands", region: "AMS" },
+        { code: "CF", country: "Central African Republic", region: "EMEA" },
+        { code: "TD", country: "Chad", region: "EMEA" },
+        { code: "CL", country: "Chile", region: "AMS" },
+        { code: "CN", country: "China", region: "APJ" },
+        { code: "CX", country: "Christmas Island", region: "APJ" },
+        { code: "CC", country: "Cocos (Keeling) Islands", region: "APJ" },
+        { code: "CO", country: "Colombia", region: "AMS" },
+        { code: "KM", country: "Comoros", region: "EMEA" },
+        { code: "CG", country: "Congo", region: "EMEA" },
+        { code: "CD", country: "Congo, Democratic Republic", region: "EMEA" },
+        { code: "CK", country: "Cook Islands", region: "APJ" },
+        { code: "CR", country: "Costa Rica", region: "AMS" },
+        { code: "CI", country: "Cote D'Ivoire", region: "EMEA" },
+        { code: "HR", country: "Croatia", region: "EMEA" },
+        { code: "CU", country: "Cuba", region: "AMS" },
+        { code: "CY", country: "Cyprus", region: "EMEA" },
+        { code: "CZ", country: "Czech Republic", region: "EMEA" },
+        { code: "DK", country: "Denmark", region: "EMEA" },
+        { code: "DJ", country: "Djibouti", region: "EMEA" },
+        { code: "DM", country: "Dominica", region: "AMS" },
+        { code: "DO", country: "Dominican Republic", region: "AMS" },
+        { code: "EC", country: "Ecuador", region: "AMS" },
+        { code: "EG", country: "Egypt", region: "EMEA" },
+        { code: "SV", country: "El Salvador", region: "AMS" },
+        { code: "GQ", country: "Equatorial Guinea", region: "EMEA" },
+        { code: "ER", country: "Eritrea", region: "EMEA" },
+        { code: "EE", country: "Estonia", region: "EMEA" },
+        { code: "ET", country: "Ethiopia", region: "EMEA" },
+        { code: "FK", country: "Falkland Islands (Malvinas)", region: "AMS" },
+        { code: "FO", country: "Faroe Islands", region: "EMEA" },
+        { code: "FJ", country: "Fiji", region: "APJ" },
+        { code: "FI", country: "Finland", region: "EMEA" },
+        { code: "FR", country: "France", region: "EMEA" },
+        { code: "GF", country: "French Guiana", region: "AMS" },
+        { code: "PF", country: "French Polynesia", region: "APJ" },
+        { code: "TF", country: "French Southern Territories", region: "APJ" },
+        { code: "GA", country: "Gabon", region: "EMEA" },
+        { code: "GM", country: "Gambia", region: "EMEA" },
+        { code: "GE", country: "Georgia", region: "EMEA" },
+        { code: "DE", country: "Germany", region: "EMEA" },
+        { code: "GH", country: "Ghana", region: "EMEA" },
+        { code: "GI", country: "Gibraltar", region: "EMEA" },
+        { code: "GR", country: "Greece", region: "EMEA" },
+        { code: "GL", country: "Greenland", region: "AMS" },
+        { code: "GD", country: "Grenada", region: "AMS" },
+        { code: "GP", country: "Guadeloupe", region: "AMS" },
+        { code: "GU", country: "Guam", region: "APJ" },
+        { code: "GT", country: "Guatemala", region: "AMS" },
+        { code: "GG", country: "Guernsey", region: "EMEA" },
+        { code: "GN", country: "Guinea", region: "EMEA" },
+        { code: "GW", country: "Guinea-Bissau", region: "EMEA" },
+        { code: "GY", country: "Guyana", region: "AMS" },
+        { code: "HT", country: "Haiti", region: "AMS" },
+        { code: "HM", country: "Heard Island & Mcdonald Islands", region: "APJ" },
+        { code: "VA", country: "Holy See (Vatican City State)", region: "EMEA" },
+        { code: "HN", country: "Honduras", region: "AMS" },
+        { code: "HK", country: "Hong Kong", region: "APJ" },
+        { code: "HU", country: "Hungary", region: "EMEA" },
+        { code: "IS", country: "Iceland", region: "EMEA" },
+        { code: "IN", country: "India", region: "APJ" },
+        { code: "ID", country: "Indonesia", region: "APJ" },
+        { code: "IR", country: "Iran, Islamic Republic Of", region: "EMEA" },
+        { code: "IQ", country: "Iraq", region: "EMEA" },
+        { code: "IE", country: "Ireland", region: "EMEA" },
+        { code: "IM", country: "Isle Of Man", region: "EMEA" },
+        { code: "IL", country: "Israel", region: "EMEA" },
+        { code: "IT", country: "Italy", region: "EMEA" },
+        { code: "JM", country: "Jamaica", region: "AMS" },
+        { code: "JP", country: "Japan", region: "APJ" },
+        { code: "JE", country: "Jersey", region: "EMEA" },
+        { code: "JO", country: "Jordan", region: "EMEA" },
+        { code: "KZ", country: "Kazakhstan", region: "EMEA" },
+        { code: "KE", country: "Kenya", region: "EMEA" },
+        { code: "KI", country: "Kiribati", region: "APJ" },
+        { code: "KR", country: "Korea", region: "APJ" },
+        { code: "KW", country: "Kuwait", region: "EMEA" },
+        { code: "KG", country: "Kyrgyzstan", region: "EMEA" },
+        { code: "LA", country: "Lao People's Democratic Republic", region: "APJ" },
+        { code: "LV", country: "Latvia", region: "EMEA" },
+        { code: "LB", country: "Lebanon", region: "EMEA" },
+        { code: "LS", country: "Lesotho", region: "EMEA" },
+        { code: "LR", country: "Liberia", region: "EMEA" },
+        { code: "LY", country: "Libyan Arab Jamahiriya", region: "EMEA" },
+        { code: "LI", country: "Liechtenstein", region: "EMEA" },
+        { code: "LT", country: "Lithuania", region: "EMEA" },
+        { code: "LU", country: "Luxembourg", region: "EMEA" },
+        { code: "MO", country: "Macao", region: "APJ" },
+        { code: "MK", country: "Macedonia", region: "EMEA" },
+        { code: "MG", country: "Madagascar", region: "EMEA" },
+        { code: "MW", country: "Malawi", region: "EMEA" },
+        { code: "MY", country: "Malaysia", region: "APJ" },
+        { code: "MV", country: "Maldives", region: "APJ" },
+        { code: "ML", country: "Mali", region: "EMEA" },
+        { code: "MT", country: "Malta", region: "EMEA" },
+        { code: "MH", country: "Marshall Islands", region: "APJ" },
+        { code: "MQ", country: "Martinique", region: "AMS" },
+        { code: "MR", country: "Mauritania", region: "EMEA" },
+        { code: "MU", country: "Mauritius", region: "EMEA" },
+        { code: "YT", country: "Mayotte", region: "EMEA" },
+        { code: "MX", country: "Mexico", region: "AMS" },
+        { code: "FM", country: "Micronesia, Federated States Of", region: "APJ" },
+        { code: "MD", country: "Moldova", region: "EMEA" },
+        { code: "MC", country: "Monaco", region: "EMEA" },
+        { code: "MN", country: "Mongolia", region: "APJ" },
+        { code: "ME", country: "Montenegro", region: "EMEA" },
+        { code: "MS", country: "Montserrat", region: "AMS" },
+        { code: "MA", country: "Morocco", region: "EMEA" },
+        { code: "MZ", country: "Mozambique", region: "EMEA" },
+        { code: "MM", country: "Myanmar", region: "APJ" },
+        { code: "NA", country: "Namibia", region: "EMEA" },
+        { code: "NR", country: "Nauru", region: "APJ" },
+        { code: "NP", country: "Nepal", region: "APJ" },
+        { code: "NL", country: "Netherlands", region: "EMEA" },
+        { code: "AN", country: "Netherlands Antilles", region: "AMS" },
+        { code: "NC", country: "New Caledonia", region: "APJ" },
+        { code: "NZ", country: "New Zealand", region: "APJ" },
+        { code: "NI", country: "Nicaragua", region: "AMS" },
+        { code: "NE", country: "Niger", region: "EMEA" },
+        { code: "NG", country: "Nigeria", region: "EMEA" },
+        { code: "NU", country: "Niue", region: "APJ" },
+        { code: "NF", country: "Norfolk Island", region: "APJ" },
+        { code: "MP", country: "Northern Mariana Islands", region: "APJ" },
+        { code: "NO", country: "Norway", region: "EMEA" },
+        { code: "OM", country: "Oman", region: "EMEA" },
+        { code: "PK", country: "Pakistan", region: "APJ" },
+        { code: "PW", country: "Palau", region: "APJ" },
+        { code: "PS", country: "Palestinian Territory, Occupied", region: "EMEA" },
+        { code: "PA", country: "Panama", region: "AMS" },
+        { code: "PG", country: "Papua New Guinea", region: "APJ" },
+        { code: "PY", country: "Paraguay", region: "AMS" },
+        { code: "PE", country: "Peru", region: "AMS" },
+        { code: "PH", country: "Philippines", region: "APJ" },
+        { code: "PN", country: "Pitcairn", region: "APJ" },
+        { code: "PL", country: "Poland", region: "EMEA" },
+        { code: "PT", country: "Portugal", region: "EMEA" },
+        { code: "PR", country: "Puerto Rico", region: "AMS" },
+        { code: "QA", country: "Qatar", region: "EMEA" },
+        { code: "RE", country: "Reunion", region: "EMEA" },
+        { code: "RO", country: "Romania", region: "EMEA" },
+        { code: "RU", country: "Russian Federation", region: "EMEA" },
+        { code: "RW", country: "Rwanda", region: "EMEA" },
+        { code: "BL", country: "Saint Barthelemy", region: "AMS" },
+        { code: "SH", country: "Saint Helena", region: "EMEA" },
+        { code: "KN", country: "Saint Kitts And Nevis", region: "AMS" },
+        { code: "LC", country: "Saint Lucia", region: "AMS" },
+        { code: "MF", country: "Saint Martin", region: "AMS" },
+        { code: "PM", country: "Saint Pierre And Miquelon", region: "AMS" },
+        { code: "VC", country: "Saint Vincent And Grenadines", region: "AMS" },
+        { code: "WS", country: "Samoa", region: "APJ" },
+        { code: "SM", country: "San Marino", region: "EMEA" },
+        { code: "ST", country: "Sao Tome And Principe", region: "EMEA" },
+        { code: "SA", country: "Saudi Arabia", region: "EMEA" },
+        { code: "SN", country: "Senegal", region: "EMEA" },
+        { code: "RS", country: "Serbia", region: "EMEA" },
+        { code: "SC", country: "Seychelles", region: "EMEA" },
+        { code: "SL", country: "Sierra Leone", region: "EMEA" },
+        { code: "SG", country: "Singapore", region: "APJ" },
+        { code: "SK", country: "Slovakia", region: "EMEA" },
+        { code: "SI", country: "Slovenia", region: "EMEA" },
+        { code: "SB", country: "Solomon Islands", region: "APJ" },
+        { code: "SO", country: "Somalia", region: "EMEA" },
+        { code: "ZA", country: "South Africa", region: "EMEA" },
+        { code: "GS", country: "South Georgia And Sandwich Isl.", region: "APJ" },
+        { code: "ES", country: "Spain", region: "EMEA" },
+        { code: "LK", country: "Sri Lanka", region: "APJ" },
+        { code: "SD", country: "Sudan", region: "EMEA" },
+        { code: "SR", country: "Suriname", region: "AMS" },
+        { code: "SJ", country: "Svalbard And Jan Mayen", region: "EMEA" },
+        { code: "SZ", country: "Swaziland", region: "EMEA" },
+        { code: "SE", country: "Sweden", region: "EMEA" },
+        { code: "CH", country: "Switzerland", region: "EMEA" },
+        { code: "SY", country: "Syrian Arab Republic", region: "EMEA" },
+        { code: "TW", country: "Taiwan", region: "APJ" },
+        { code: "TJ", country: "Tajikistan", region: "EMEA" },
+        { code: "TZ", country: "Tanzania", region: "EMEA" },
+        { code: "TH", country: "Thailand", region: "APJ" },
+        { code: "TL", country: "Timor-Leste", region: "APJ" },
+        { code: "TG", country: "Togo", region: "EMEA" },
+        { code: "TK", country: "Tokelau", region: "APJ" },
+        { code: "TO", country: "Tonga", region: "APJ" },
+        { code: "TT", country: "Trinidad And Tobago", region: "AMS" },
+        { code: "TN", country: "Tunisia", region: "EMEA" },
+        { code: "TR", country: "Turkey", region: "EMEA" },
+        { code: "TM", country: "Turkmenistan", region: "EMEA" },
+        { code: "TC", country: "Turks And Caicos Islands", region: "AMS" },
+        { code: "TV", country: "Tuvalu", region: "APJ" },
+        { code: "UG", country: "Uganda", region: "EMEA" },
+        { code: "UA", country: "Ukraine", region: "EMEA" },
+        { code: "AE", country: "United Arab Emirates", region: "EMEA" },
+        { code: "GB", country: "United Kingdom", region: "EMEA" },
+        { code: "US", country: "United States", region: "AMS" },
+        { code: "UM", country: "United States Outlying Islands", region: "APJ" },
+        { code: "UY", country: "Uruguay", region: "AMS" },
+        { code: "UZ", country: "Uzbekistan", region: "EMEA" },
+        { code: "VU", country: "Vanuatu", region: "APJ" },
+        { code: "VE", country: "Venezuela", region: "AMS" },
+        { code: "VN", country: "Viet Nam", region: "APJ" },
+        { code: "VG", country: "Virgin Islands, British", region: "AMS" },
+        { code: "VI", country: "Virgin Islands, U.S.", region: "AMS" },
+        { code: "WF", country: "Wallis And Futuna", region: "APJ" },
+        { code: "EH", country: "Western Sahara", region: "EMEA" },
+        { code: "YE", country: "Yemen", region: "EMEA" },
+        { code: "ZM", country: "Zambia", region: "EMEA" },
+        { code: "ZW", country: "Zimbabwe", region: "EMEA" }
+    ];
+
+    let filteredResults = [];
+
+    // Search functionality
+    $('#countrySearch').on('input', function() {
+        let query = $(this).val().toUpperCase().trim();
+        
+        // Only allow alphabetic characters and limit to 2 characters
+        query = query.replace(/[^A-Z]/g, '').substring(0, 2);
+        $(this).val(query);
+
+        if (query === '') {
+            $('#countryResults').html('<p class="text-muted text-center">Enter a country code to find country information</p>');
+            $('#resultCount').text('0 results').removeClass('bg-primary').addClass('bg-secondary');
+            return;
+        }
+
+        // Filter results - only by country code
+        filteredResults = countryData.filter(function(item) {
+            return item.code.startsWith(query);
+        });
+
+        displayResults(filteredResults, query);
+    });
+
+    function displayResults(results, query) {
+        const container = $('#countryResults');
+        const resultCount = $('#resultCount');
+        
+        container.empty();
+        resultCount.text(`${results.length} result${results.length !== 1 ? 's' : ''}`);
+
+        if (results.length === 0) {
+            container.html(`
+                <div class="no-results">
+                    <i class="fas fa-search fa-3x mb-3 text-muted"></i>
+                    <h5>No countries found</h5>
+                    <p>Try entering a valid 2-letter country code like US, GB, DE, JP, or IN.</p>
+                </div>
+            `);
+            resultCount.removeClass('bg-primary').addClass('bg-secondary');
+            return;
+        }
+
+        resultCount.removeClass('bg-secondary').addClass('bg-primary');
+
+        results.forEach(country => {
+            const highlightedCode = highlightSearchTerm(country.code, query);
+            const highlightedCountry = highlightSearchTerm(country.country, query);
+            const highlightedRegion = highlightSearchTerm(country.region, query);
+
+            const item = $(`
+                <div class="country-item" data-code="${country.code}" data-country="${country.country}" data-region="${country.region}">
+                    <div class="country-details">
+                        <div class="country-code">${highlightedCode}</div>
+                        <div class="flex-grow-1">
+                            <div class="country-name">${highlightedCountry}</div>
+                            <div class="country-region">
+                                <i class="fas fa-globe-americas"></i> ${highlightedRegion}
+                            </div>
+                        </div>
+                        <div class="copy-indicator" style="display: none;">
+                            <i class="fas fa-check text-success"></i> Copied!
+                        </div>
+                    </div>
+                </div>
+            `);
+            container.append(item);
+        });
+    }
+
+    function highlightSearchTerm(text, query) {
+        if (!query) return text;
+        
+        const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+        return text.replace(regex, '<span class="search-highlight">$1</span>');
+    }
+
+    function escapeRegExp(string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    // Click to copy functionality
+    $(document).on('click', '.country-item', function() {
+        const code = $(this).data('code');
+        const country = $(this).data('country');
+        const region = $(this).data('region');
+        const copyText = `${code} - ${country} (${region})`;
+        
+        const item = $(this);
+        const indicator = item.find('.copy-indicator');
+
+        // Copy to clipboard
+        try {
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = copyText;
+            tempTextArea.style.position = 'absolute';
+            tempTextArea.style.left = '-9999px';
+            tempTextArea.style.top = '0';
+            tempTextArea.style.opacity = '0';
+            tempTextArea.style.pointerEvents = 'none';
+            tempTextArea.setAttribute('readonly', '');
+            tempTextArea.setAttribute('tabindex', '-1');
+            
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            tempTextArea.setSelectionRange(0, 99999);
+            
+            const successful = document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+            
+            if (successful) {
+                // Show success toast
+                const toast = new bootstrap.Toast(document.getElementById('copyToast'));
+                toast.show();
+                
+                // Show indicator
+                indicator.show().fadeOut(2000);
+                
+                // Visual feedback
+                item.addClass('border-success');
+                setTimeout(function() {
+                    item.removeClass('border-success');
+                }, 2000);
+            } else {
+                throw new Error('Copy command failed');
+            }
+            
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+            
+            // Try modern clipboard API as fallback
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(copyText).then(function() {
+                    // Show success toast
+                    const toast = new bootstrap.Toast(document.getElementById('copyToast'));
+                    toast.show();
+                    
+                    // Show indicator
+                    indicator.show().fadeOut(2000);
+                    
+                    // Visual feedback
+                    item.addClass('border-success');
+                    setTimeout(function() {
+                        item.removeClass('border-success');
+                    }, 2000);
+                }).catch(function(clipErr) {
+                    console.error('Clipboard API also failed: ', clipErr);
+                    alert('Failed to copy to clipboard. Please select and copy the text manually.');
+                });
+            } else {
+                alert('Failed to copy to clipboard. Please select and copy the text manually.');
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

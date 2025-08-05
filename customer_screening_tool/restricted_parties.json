@@ -1,0 +1,723 @@
+[
+  {
+    "id": 1,
+    "name": "AMD ",
+    "reason": "",
+    "source": "ARAN MODERN DEVICES\" https://www.mkdenial.com/view.cfm?idnum=60383&ShowDelisted=1\"",
+    "comments": "",
+    "created_date": "2025-06-09T07:13:26.171154",
+    "modified_date": "2025-06-09T10:36:23.079647"
+  },
+  {
+    "id": 2,
+    "name": "BK co.",
+    "reason": "",
+    "source": "BK CO. - https://www.mkdenial.com/view.cfm?idnum=33618 - IR",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.208929"
+  },
+  {
+    "id": 3,
+    "name": "ISI",
+    "reason": "",
+    "source": "ISI-https://www.mkdenial.com/view.cfm?idnum=50279",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.211572"
+  },
+  {
+    "id": 4,
+    "name": "ALCO",
+    "reason": "",
+    "source": "ALCO-https://www.mkdenial.com/view.cfm?idnum=99050 - CN",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.212104"
+  },
+  {
+    "id": 5,
+    "name": "Beeline",
+    "reason": "",
+    "source": "Beeline- https://www.mkdenial.com/view.cfm?greylistkey=4697432 - Canada - CES, Consolidated Canadian Autonomous Sanctions List; Special Economic Measures (Russia / Russie Regulations)",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.212538"
+  },
+  {
+    "id": 6,
+    "name": "sun SM",
+    "reason": "",
+    "source": "sun SM -https://www.mkdenial.com/view.cfm?idnum=156823 - RU, AE",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.213597"
+  },
+  {
+    "id": 7,
+    "name": "Postbank",
+    "reason": "",
+    "source": "Postbank - https://www.mkdenial.com/view.cfm?idnum=113886",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.214157"
+  },
+  {
+    "id": 8,
+    "name": "Beeline",
+    "reason": "",
+    "source": "Beeline- https://www.mkdenial.com/view.cfm?greylistkey=4697432",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.214606"
+  },
+  {
+    "id": 9,
+    "name": "Hara Company",
+    "reason": "",
+    "source": "Hara Company - https://www.mkdenial.com/view.cfm?greylistkey=592769",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.218163"
+  },
+  {
+    "id": 10,
+    "name": "EL JT,",
+    "reason": "",
+    "source": "EL JT,- https://www.mkdenial.com/view.cfm?idnum=27835 - MX",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.223999"
+  },
+  {
+    "id": 11,
+    "name": "SEWA SECURITY SERVICES",
+    "reason": "",
+    "source": "SEWA SECURITY SERVICES - https://www.mkdenial.com/view.cfm?idnum=157153 - cf",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.234538"
+  },
+  {
+    "id": 12,
+    "name": "NOVACOM INC.",
+    "reason": "",
+    "source": "NOVACOM INC. - https://www.mkdenial.com/view.cfm?idnum=7137",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.246291"
+  },
+  {
+    "id": 13,
+    "name": "OOO \"NATS\"",
+    "reason": "",
+    "source": "OOO \"NATS\" - https://www.mkdenial.com/view.cfm?idnum=157099 - RU",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.247916"
+  },
+  {
+    "id": 14,
+    "name": "INFOCOM CORPORATION INC",
+    "reason": "",
+    "source": "INFOCOM CORPORATION INC - https://www.infocom.co.jp/en/index.html /  https://www.mkdenial.com/view.cfm?idnum=26197&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.249080"
+  },
+  {
+    "id": 15,
+    "name": "NEPTUNE LLC COMPANY",
+    "reason": "",
+    "source": "NEPTUNE LLC COMPANY - https://www.mkdenial.com/view.cfm?idnum=158886",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.249840"
+  },
+  {
+    "id": 16,
+    "name": "SIGNAL MICRO SYSTEMS INC.",
+    "reason": "",
+    "source": "SIGNAL MICRO SYSTEMS INC. - country US - https://www.mkdenial.com/view.cfm?idnum=86638",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.250567"
+  },
+  {
+    "id": 17,
+    "name": "DELOS VOYAGER",
+    "reason": "",
+    "source": "DELOS VOYAGER - https://www.mkdenial.com/view.cfm?idnum=121174",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.252465"
+  },
+  {
+    "id": 18,
+    "name": "9. BRIGAAD",
+    "reason": "",
+    "source": "9. BRIGAAD - https://www.mkdenial.com/view.cfm?idnum=136295 - LIBYAN ARMED MILITIA",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.253281"
+  },
+  {
+    "id": 19,
+    "name": "AVIATION CAPITAL SOLUTIONS LTD.",
+    "reason": "",
+    "source": "AVIATION CAPITAL SOLUTIONS LTD. - https://www.mkdenial.com/view.cfm?idnum=94731",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.254020"
+  },
+  {
+    "id": 20,
+    "name": "SUN SHIP MANAGEMENT D LTD",
+    "reason": "",
+    "source": "SUN SHIP MANAGEMENT D LTD - https://www.mkdenial.com/view.cfm?idnum=168489",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.254856"
+  },
+  {
+    "id": 21,
+    "name": "NAJA",
+    "reason": "",
+    "source": "NAJA:https://www.mkdenial.com/view.cfm?akaname=NAJA",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.255514"
+  },
+  {
+    "id": 22,
+    "name": "GREAT LAKES BUSINESS COMPANY",
+    "reason": "",
+    "source": "GREAT LAKES BUSINESS COMPANY - https://www.mkdenial.com/view.cfm?idnum=26695 - RW",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.256226"
+  },
+  {
+    "id": 23,
+    "name": "IIRO",
+    "reason": "",
+    "source": "IIRO  - https://www.mkdenial.com/view.cfm?idnum=25687",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.257024"
+  },
+  {
+    "id": 24,
+    "name": "RG GROUP FZE",
+    "reason": "",
+    "source": "RG GROUP FZE - https://www.mkdenial.com/view.cfm?idnum=167643",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.257867"
+  },
+  {
+    "id": 25,
+    "name": "OOO \"UNITEK\"",
+    "reason": "",
+    "source": "OOO \"UNITEK\" - https://www.mkdenial.com/view.cfm?idnum=156871 - RU",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.258919"
+  },
+  {
+    "id": 26,
+    "name": "DELOS VOYAGER",
+    "reason": "",
+    "source": "DELOS VOYAGER - https://www.mkdenial.com/view.cfm?idnum=121174 -  Venezuela",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.261270"
+  },
+  {
+    "id": 27,
+    "name": "Bank of East Land",
+    "reason": "",
+    "source": "Bank of East Land - https://www.mkdenial.com/view.cfm?greylistkey=689858 - Iran's",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.262234"
+  },
+  {
+    "id": 28,
+    "name": "COLOMBIANA DE BIOCOMBUSTIBLES S.A.",
+    "reason": "",
+    "source": "COLOMBIANA DE BIOCOMBUSTIBLES S.A. - https://www.mkdenial.com/view.cfm?idnum=86875",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.263082"
+  },
+  {
+    "id": 29,
+    "name": "STATE PURCHASING OFFICE",
+    "reason": "",
+    "source": "STATE PURCHASING OFFICE - https://www.mkdenial.com/view.cfm?idnum=129131  - IR",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.263942"
+  },
+  {
+    "id": 30,
+    "name": "ADVANCED WEB SERVICES",
+    "reason": "",
+    "source": "ADVANCED WEB SERVICES - https://www.mkdenial.com/view.cfm?idnum=149779 - us",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.264726"
+  },
+  {
+    "id": 31,
+    "name": "CARBON ELEMENT TECHNOLOGY",
+    "reason": "",
+    "source": "CARBON ELEMENT TECHNOLOGY - https://www.mkdenial.com/view.cfm?idnum=144332 - CN",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.265542"
+  },
+  {
+    "id": 32,
+    "name": "LA BASE",
+    "reason": "",
+    "source": "LA BASE - Family restaurant, parties, events. - HK - https://www.mkdenial.com/view.cfm?akaname=LA%20BASE",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.266568"
+  },
+  {
+    "id": 33,
+    "name": "ACCOUNTS AND ELECTRONICS EQUIPMENT",
+    "reason": "",
+    "source": "ACCOUNTS AND ELECTRONICS EQUIPMENT - https://www.mkdenial.com/view.cfm?idnum=77484 - sudan-sd",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.267283"
+  },
+  {
+    "id": 34,
+    "name": "https",
+    "reason": "",
+    "source": "https://www.mkdenial.com/view.cfm?glid=15&greylistkey=2555882&GLakaname=DOV",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.268159"
+  },
+  {
+    "id": 35,
+    "name": "RPL: CRP",
+    "reason": "",
+    "source": "RPL: CRP - CETNIK RAVNAGORSKI POKRET - https://www.mkdenial.com/view.cfm?idnum=13644",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.269243"
+  },
+  {
+    "id": 36,
+    "name": "AMD",
+    "reason": "",
+    "source": "AMD - ARAN MODERN DEVICES - https://www.mkdenial.com/view.cfm?idnum=60383 - eus",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.270642"
+  },
+  {
+    "id": 37,
+    "name": "VEKTOR SA",
+    "reason": "",
+    "source": "VEKTOR SA  - https://www.mkdenial.com/view.cfm?idnum=162107 - RU",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.271870"
+  },
+  {
+    "id": 38,
+    "name": "Chabaab",
+    "reason": "",
+    "source": "Chabaab - https://www.mkdenial.com/view.cfm?greylistkey=587079 - Delisted",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.272821"
+  },
+  {
+    "id": 39,
+    "name": "PERFORMANCE ENGINEERED NONWOVENS LLC",
+    "reason": "",
+    "source": "PERFORMANCE ENGINEERED NONWOVENS LLC - https://www.mkdenial.com/view.cfm?idnum=89739 - US",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.273916"
+  },
+  {
+    "id": 40,
+    "name": "NEPTUNE LLC COMPANY",
+    "reason": "",
+    "source": "NEPTUNE LLC COMPANY\nNeptunus LLC\u00a0is involved in drug operations in the port of Latakia\nhttps://www.opensanctions.org/entities/NK-FW5e3NsNG4JxZ298rGrmmb/",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.277297"
+  },
+  {
+    "id": 41,
+    "name": "MSC",
+    "reason": "",
+    "source": "MSC\nMAGLES SHOURA AL-MUJAHDDIN is an armed Palestinian Salafi jihadist group linked to al-Qaeda that is active\nhttps://www.mkdenial.com/view.cfm?idnum=85296&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.278337"
+  },
+  {
+    "id": 42,
+    "name": "Catronics LLC",
+    "reason": "",
+    "source": "Catronics LLC\nhttps://www.dandb.com/businessdirectory/catronicsllc-northport-https://www.dandb.com/businessdirectory/catronicsllc-northport-\nal-21862083.html",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.280455"
+  },
+  {
+    "id": 43,
+    "name": "Eastech",
+    "reason": "",
+    "source": "Eastech\nEastech, a professional electronic component supplier with comprehensive competitive advantages, provides clients with one-stop and all-around services\nhttps://www.eastechic.com/about",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.281399"
+  },
+  {
+    "id": 44,
+    "name": "IED",
+    "reason": "",
+    "source": "IED\nRPL-INDUSTRIAL ESTABLISHMENT OF DEFENSE (IED)",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.282566"
+  },
+  {
+    "id": 45,
+    "name": "PCP",
+    "reason": "",
+    "source": "PCP\nPCP (Partido Comunista del Peru (Communist Party of Peru)",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.283686"
+  },
+  {
+    "id": 46,
+    "name": "GCT",
+    "reason": "",
+    "source": "GCT\nGCT(GROUPE COMBATTANT TUNISIEN)",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.284863"
+  },
+  {
+    "id": 47,
+    "name": "Unitec",
+    "reason": "",
+    "source": "Unitec\nSPL Details:- https://www.mkdenial.com/view.cfm?idnum=156871\n&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.285828"
+  },
+  {
+    "id": 48,
+    "name": "AMD",
+    "reason": "",
+    "source": "AMD\nARAN MODERN DEVICES\nhttps://www.mkdenial.com/view.cfm?idnum=60383&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.286703"
+  },
+  {
+    "id": 49,
+    "name": "PCC",
+    "reason": "",
+    "source": "PCC\nPETROCHEMICAL COMMERCIAL COMPANY\nhttps://www.mkdenial.com/view.cfm?idnum=53637&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.289995"
+  },
+  {
+    "id": 50,
+    "name": "PSD",
+    "reason": "",
+    "source": "PSD\nPOLITICAL SECURITY DIVISION\nhttps://www.mkdenial.com/view.cfm?greylistkey=4864836&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.290813"
+  },
+  {
+    "id": 51,
+    "name": "MB BANK",
+    "reason": "",
+    "source": "MB BANK\nBANK MELLI IRAN ZAO\nhttps://www.mkdenial.com/view.cfm?idnum=113406&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.293778"
+  },
+  {
+    "id": 52,
+    "name": "BK CO",
+    "reason": "",
+    "source": "BK CO\nABZAR BORESH KAVEH CO\nhttps://www.mkdenial.com/view.cfm?greylistkey=4772592&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.294729"
+  },
+  {
+    "id": 53,
+    "name": "COMET",
+    "reason": "",
+    "source": "COMET\nCORPORATION KOMETA\nhttps://www.mkdenial.com/view.cfm?idnum=169394&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.296088"
+  },
+  {
+    "id": 54,
+    "name": "INFOTECS",
+    "reason": "",
+    "source": "INFOTECS\nAN ENTITY THAT OPERATES IN THE RUSSIAN IT SECTOR\nhttps://www.mkdenial.com/view.cfm?idnum=169373&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.297319"
+  },
+  {
+    "id": 55,
+    "name": "EIIC",
+    "reason": "",
+    "source": "EIIC\nhttps://www.mkdenial.com/view.cfm?greylistkey=867442&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.298560"
+  },
+  {
+    "id": 56,
+    "name": "INFOROS",
+    "reason": "",
+    "source": "INFOROS\nConsolidated Canadian Autonomous Sanctions List; Special Economic Measures (Russia / Russie Regulations)\nhttps://www.mkdenial.com/view.cfm?greylistkey=4565654&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.299734"
+  },
+  {
+    "id": 57,
+    "name": "PPL",
+    "reason": "",
+    "source": "PPL\nPETROPARS LIMITED\nhttps://www.mkdenial.com/view.cfm?idnum=53560&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.300927"
+  },
+  {
+    "id": 58,
+    "name": "ISLAMIC GROUP",
+    "reason": "",
+    "source": "ISLAMIC GROUP\nEuropean Union Sanctions List\nhttps://www.mkdenial.com/view.cfm?idnum=162734&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.320369"
+  },
+  {
+    "id": 59,
+    "name": "ELA",
+    "reason": "",
+    "source": "ELA\nRevolutionary Nuclei\nSuppression of Terrorism",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.321449"
+  },
+  {
+    "id": 60,
+    "name": "AMD",
+    "reason": "",
+    "source": "AMD\nARAN MODERN DEVICES\nhttps://www.mkdenial.com/view.cfm?idnum=60383&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.325242"
+  },
+  {
+    "id": 61,
+    "name": "COMET",
+    "reason": "",
+    "source": "COMET\nCORPORATION KOMETA\nhttps://www.mkdenial.com/view.cfm?idnum=169394&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.326038"
+  },
+  {
+    "id": 62,
+    "name": "A RADIO D.O.O. BANJA LUKA",
+    "reason": "",
+    "source": "A RADIO D.O.O. BANJA LUKA\nhttps://www.companywall.ba/firma/a-radio-doo-banja-luka/MMk7TzD",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.327031"
+  },
+  {
+    "id": 63,
+    "name": "WAGNER GROUP",
+    "reason": "",
+    "source": "WAGNER GROUP\nis a Russian state-funded[66]\u00a0private military company\u00a0(PMC)\nhttps://en.wikipedia.org/wiki/Wagner_Group",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.331733"
+  },
+  {
+    "id": 64,
+    "name": "PSD",
+    "reason": "",
+    "source": "PSD\nPOLITICAL SECURITY DIVISION\nhttps://www.mkdenial.com/view.cfm?greylistkey=4864836&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.332605"
+  },
+  {
+    "id": 65,
+    "name": "SUN SM",
+    "reason": "",
+    "source": "SUN SM\nSUN SHIP MANAGEMENT (D) LTD\nhttps://www.mkdenial.com/view.cfm?idnum=156823&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.334076"
+  },
+  {
+    "id": 66,
+    "name": "LIGA",
+    "reason": "",
+    "source": "LIGA\nWAGNER GROUP\nhttps://www.mkdenial.com/view.cfm?idnum=158086&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.342039"
+  },
+  {
+    "id": 67,
+    "name": "LIGA",
+    "reason": "",
+    "source": "LIGA\n\u00a0Consolidated Canadian Autonomous Sanctions List; Special Economic Measures (Iran Regulations)\nhttps://www.mkdenial.com/view.cfm?greylistkey=687191&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.344162"
+  },
+  {
+    "id": 68,
+    "name": "AIG",
+    "reason": "",
+    "source": "AIG\nARMAMENT INDUSTRIES GROUP\nhttps://www.mkdenial.com/view.cfm?idnum=174011&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.349958"
+  },
+  {
+    "id": 69,
+    "name": "GICT",
+    "reason": "",
+    "source": "GICT\nRPL - GICT - Associated with the Organization of Al-Qaida in the Islamic Maghreb",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.351103"
+  },
+  {
+    "id": 70,
+    "name": "LIGUE",
+    "reason": "",
+    "source": "LIGUE\nWAGNER GROUP\nhttps://www.mkdenial.com/view.cfm?idnum=153312&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.352338"
+  },
+  {
+    "id": 71,
+    "name": "\"NATS\" SRL",
+    "reason": "",
+    "source": "\"NATS\" SRL\n\u00a0A CONSTRUCTION COMPANY THAT SPECIALIZES IN ROAD AND HIGHWAY REPAIRS\nhttps://www.mkdenial.com/view.cfm?idnum=157103&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.357189"
+  },
+  {
+    "id": 72,
+    "name": "NCG",
+    "reason": "",
+    "source": "NCG\nNamchongang is a Democratic People's Republic of Korea trading company subordinate to the General Bureau of Atomic Energy (GBAE)\nhttps://www.mkdenial.com/view.cfm?greylistkey=654381&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.358796"
+  },
+  {
+    "id": 73,
+    "name": "BMI",
+    "reason": "",
+    "source": "BMI\nISLAMIC REVOLUTIONARY GUARD CORPS (IRGC)-QODS FORCE\nBANK MELLI IRAN",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.360338"
+  },
+  {
+    "id": 74,
+    "name": "CTI",
+    "reason": "",
+    "source": "CTI\nCHINA\nhttps://www.mkdenial.com/view.cfm?greylistkey=1160&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.366821"
+  },
+  {
+    "id": 75,
+    "name": "POSTBANK",
+    "reason": "",
+    "source": "POSTBANK\n\u2020POST BANK OF IRAN\nhttps://www.mkdenial.com/view.cfm?idnum=113886&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.367642"
+  },
+  {
+    "id": 76,
+    "name": "GIA",
+    "reason": "",
+    "source": "GIA\nhttps://www.mkdenial.com/view.cfm?idnum=34639&ShowDelisted=1\nGROUPE ISLAMIQUE ARME",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.373267"
+  },
+  {
+    "id": 77,
+    "name": "SMI",
+    "reason": "",
+    "source": "SMI\nSyrian Military Intelligence\nhttps://www.mkdenial.com/view.cfm?greylistkey=727602&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.375065"
+  },
+  {
+    "id": 78,
+    "name": "ASBL",
+    "reason": "",
+    "source": "ASBL\nAL-AQSA CHARITABLE ORGANIZATION\nhttps://www.mkdenial.com/view.cfm?greylistkey=635794&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.376328"
+  },
+  {
+    "id": 79,
+    "name": "TMC",
+    "reason": "",
+    "source": "TMC\nTactical Missiles Corporation\nhttps://www.mkdenial.com/view.cfm?greylistkey=3858560&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.378867"
+  },
+  {
+    "id": 80,
+    "name": "MTS",
+    "reason": "",
+    "source": "MTS\nPUBLIC JOINT STOCK COMPANY \"MOBILE TELESYSTEMS\"\nhttps://www.mkdenial.com/view.cfm?greylistkey=4697423&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.380312"
+  },
+  {
+    "id": 81,
+    "name": "HUA",
+    "reason": "",
+    "source": "HUA\nAddress: Pakistan\nActive in Pakistan and Afghanistan. Banned in Pakistan.\nAssociated with Jaish-i-Mohammed\u00a0\nhttps://www.mkdenial.com/view.cfm?greylistkey=587495&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.383814"
+  },
+  {
+    "id": 82,
+    "name": "NICO",
+    "reason": "",
+    "source": "NICO\nNAFTIRAN INTERTRADE CO. (NICO) LIMITED\nhttps://www.mkdenial.com/view.cfm?idnum=53777&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.385292"
+  },
+  {
+    "id": 83,
+    "name": "ANDURIL INDUSTRIES",
+    "reason": "",
+    "source": "ANDURIL INDUSTRIES\nAmerican defense technology company\nhttps://en.wikipedia.org/wiki/Anduril_Industries",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.386897"
+  },
+  {
+    "id": 84,
+    "name": "AIG",
+    "reason": "",
+    "source": "AIG\n\u00a0Iran\u2019s Defense Industries Organization (DIO), ARMAMENT INDUSTRIES GROUP\nhttps://www.mkdenial.com/view.cfm?idnum=174011&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.388486"
+  },
+  {
+    "id": 85,
+    "name": "TEM CO",
+    "reason": "",
+    "source": "TEM CO \nTurbine Engineering and Manufacturing (TEM), From Iran .\n\nhttps://www.ifmat.org/12/08/turbine-engineering-manufacturing/",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.389817"
+  },
+  {
+    "id": 86,
+    "name": "GID",
+    "reason": "",
+    "source": "GID\nGENERAL INTELLIGENCE DIRECTORATE\nhttps://www.mkdenial.com/view.cfm?greylistkey=635753&ShowDelisted=1\nhttps://www.ifmat.org/12/08/turbine-engineering-manufacturing/",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.391279"
+  },
+  {
+    "id": 87,
+    "name": "AAB",
+    "reason": "",
+    "source": "ABDALLAH AZZAM BRIGADES (AAB)\nhttps://www.mkdenial.com/view.cfm?idnum=86486&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.399679"
+  },
+  {
+    "id": 88,
+    "name": "ENICS",
+    "reason": "",
+    "source": "ENICS - KAZAN, REPUBLIC OF TATARSTAN\nhttps://www.mkdenial.com/view.cfm?idnum=150931&ShowDelisted=1",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.401500"
+  },
+  {
+    "id": 89,
+    "name": "TSS co",
+    "reason": "",
+    "source": "TSS co \nTadbir Sazan Sayal (TSS Co.)\nhttps://automa.net/company/tadbir-sazan-sayal-tss-co?srsltid=AfmBOopJwKHU31ntWps3R8DDStHtCidPVe0M49ojfwIbyry6KDLk0ffJ",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.403012"
+  },
+  {
+    "id": 90,
+    "name": "PRECISION INDUSTRIES INC.",
+    "reason": "",
+    "source": "PRECISION INDUSTRIES INC.  http://www.precisionimage.com/ (Not active)",
+    "comments": "",
+    "created_date": "2025-08-04T04:13:15.404548"
+  }
+]
